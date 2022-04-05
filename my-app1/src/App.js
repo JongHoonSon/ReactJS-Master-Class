@@ -11,15 +11,20 @@ const Btn = styled.button`
   border-radius: 15px;
 `;
 
+const Input = styled.input.attrs({ required: true })`
+  background-color: tomato;
+`;
+
 const Link = styled(Btn);
 
 function App() {
   return (
     <Father as="header">
-      <Btn>Log in</Btn>
-      <Btn as="a" href="/">
-        Log in
-      </Btn>
+      <Input />
+      <Input />
+      <Input />
+      <Input />
+      <Input />
     </Father>
   );
 }
