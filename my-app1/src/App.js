@@ -23,13 +23,24 @@ const Box = styled.div`
   height: 200px;
   width: 200px;
   background-color: tomato;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   animation: ${rotationAnimation} 5s linear infinite;
+  span {
+    font-size: 64px;
+    &:hover {
+      font-size: 128px;
+    }
+  }
 `;
 
 function App() {
   return (
     <Wrapper>
-      <Box />
+      <Box>
+        <span>:)</span>
+      </Box>
     </Wrapper>
   );
 }
