@@ -20,3 +20,4 @@ function Circle({ bgColor }: CircleProp) {
 }
 
 export default Circle;
+//
