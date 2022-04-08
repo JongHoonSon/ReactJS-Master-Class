@@ -168,10 +168,7 @@ function Coin() {
   );
   const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(
     ["tickers", coinId],
-    () => fetchCoinTickers(coinId),
-    {
-      refetchInterval: 5000,
-    }
+    () => fetchCoinTickers(coinId)
   );
   const loading = infoLoading || tickersLoading;
   return (
@@ -224,7 +221,24 @@ function Coin() {
               <Link to={`/${coinId}/chart`}>Chart</Link>
             </Tab>
             <Tab isActive={priceMatch !== null}>
-              <Link to={`/${coinId}/price`}>Price</Link>
+              <Link
+                to={{
+                  pathname: `/${coinId}/price`,
+                  state: {
+                    m15: tickersData?.quotes.USD.percent_change_15m,
+                    m30: tickersData?.quotes.USD.percent_change_30m,
+                    h1: tickersData?.quotes.USD.percent_change_1h,
+                    h6: tickersData?.quotes.USD.percent_change_6h,
+                    h12: tickersData?.quotes.USD.percent_change_12h,
+                    h24: tickersData?.quotes.USD.percent_change_24h,
+                    d7: tickersData?.quotes.USD.percent_change_7d,
+                    d30: tickersData?.quotes.USD.percent_change_30d,
+                    y1: tickersData?.quotes.USD.percent_change_1y,
+                  },
+                }}
+              >
+                Price
+              </Link>
             </Tab>
           </Tabs>
 
