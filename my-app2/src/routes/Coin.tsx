@@ -33,6 +33,20 @@ const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+`;
+
+const Btn = styled.button`
+  position: absolute;
+  color: white;
+  background-color: ${(props) => props.theme.bgColor};
+  border: 0;
+  outline: 0;
+  bottom: 30px;
+  left: 10px;
+  font-size: 25px;
+  font-weight: 500;
+  cursor: pointer;
 `;
 
 const Title = styled.h1`
@@ -168,6 +182,9 @@ function Coin() {
         </title>
       </Helmet>
       <Header>
+        <Link to="/">
+          <Btn>&larr;</Btn>
+        </Link>
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
@@ -187,7 +204,7 @@ function Coin() {
             </OverviewItem>
             <OverviewItem>
               <span>Price:</span>
-              <span>{tickersData?.quotes.USD.price.toFixed(3)}</span>
+              <span>{`$ ${tickersData?.quotes.USD.price.toFixed(2)}`}</span>
             </OverviewItem>
           </Overview>
           <Description>{infoData?.description}</Description>
