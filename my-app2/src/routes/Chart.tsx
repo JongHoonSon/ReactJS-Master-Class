@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import { fetchCoinHistory } from "../api";
 import ApexChart from "react-apexcharts";
+import ReactApexChart from "react-apexcharts";
 
 interface ChartProps {
   coinId: string;
@@ -26,59 +27,62 @@ function Chart({ coinId }: ChartProps) {
       {isLoading ? (
         "Loading chart..."
       ) : (
-        <ApexChart
-          type="line"
-          series={[
-            {
-              name: "Price",
-              data: data?.map((price) => price.close) as number[],
-            },
-          ]}
-          options={{
-            theme: {
-              mode: "dark",
-            },
-            chart: {
-              toolbar: {
+        <>
+          <ApexChart
+            type="candlestick"
+            series={[
+              {
+                data: data?.map((price) => ({
+                  x: price.time_open,
+                  y: [
+                    price.open.toFixed(2),
+                    price.high.toFixed(2),
+                    price.low.toFixed(2),
+                    price.close.toFixed(2),
+                  ],
+                })) as unknown as number[],
+              },
+            ]}
+            options={{
+              theme: {
+                mode: "dark",
+              },
+              chart: {
+                type: "candlestick",
+                height: 350,
+                width: 500,
+                toolbar: {
+                  show: false,
+                },
+                background: "transparent",
+              },
+              stroke: {
+                curve: "smooth",
+                width: 2,
+              },
+              yaxis: {
                 show: false,
               },
-              background: "transparent",
-            },
-            grid: {
-              show: false,
-            },
-            stroke: {
-              curve: "smooth",
-              width: 5,
-            },
-            yaxis: {
-              show: false,
-            },
-            xaxis: {
-              labels: {
-                show: false,
+              xaxis: {
+                type: "datetime",
+                categories: data?.map((price) => price.time_close),
+                labels: {
+                  style: {
+                    colors: "#9c88ff",
+                  },
+                },
               },
-              axisTicks: {
-                show: false,
+              plotOptions: {
+                candlestick: {
+                  colors: {
+                    upward: "#3C90EB",
+                    downward: "#DF7D46",
+                  },
+                },
               },
-              type: "datetime",
-              axisBorder: {
-                show: false,
-              },
-              categories: data?.map((data) => data.time_close),
-            },
-            fill: {
-              type: "gradient",
-              gradient: { gradientToColors: ["#0be881"], stops: [0, 100] },
-            },
-            colors: ["#0fbcf9"],
-            tooltip: {
-              y: {
-                formatter: (value) => `$ ${value.toFixed(2)}`,
-              },
-            },
-          }}
-        ></ApexChart>
+            }}
+          />
+        </>
       )}
     </div>
   );
