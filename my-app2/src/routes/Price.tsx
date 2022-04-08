@@ -39,39 +39,39 @@ function Price({ coinId }: PriceProps) {
     <>
       <PriceHistoryBlock isPlus={state.m15}>
         <div>15min ago</div>
-        <div>{`${state.m15} %`}</div>
+        <div>{state.m15 > 0 ? `+${state.m15} %` : `${state.m15} %`}</div>
       </PriceHistoryBlock>
       <PriceHistoryBlock isPlus={state.m30}>
         <div>30min ago</div>
-        <div>{`${state.m30} %`}</div>
+        <div>{state.m30 > 0 ? `+${state.m30} %` : `${state.m30} %`}</div>
       </PriceHistoryBlock>
       <PriceHistoryBlock isPlus={state.h1}>
         <div>1h ago</div>
-        <div>{`${state.h1} %`}</div>
+        <div>{state.h1 > 0 ? `+${state.h1} %` : `${state.h1} %`}</div>
       </PriceHistoryBlock>
       <PriceHistoryBlock isPlus={state.h6}>
         <div>6h ago</div>
-        <div>{`${state.h6} %`}</div>
+        <div>{state.h6 > 0 ? `+${state.h6} %` : `${state.h6} %`}</div>
       </PriceHistoryBlock>
       <PriceHistoryBlock isPlus={state.h12}>
         <div>12h ago</div>
-        <div>{`${state.h12} %`}</div>
+        <div>{state.h12 > 0 ? `+${state.h12} %` : `${state.h12} %`}</div>
       </PriceHistoryBlock>
       <PriceHistoryBlock isPlus={state.h24}>
         <div>24h ago</div>
-        <div>{`${state.h24} %`}</div>
+        <div>{state.h24 > 0 ? `+${state.h24} %` : `${state.h24} %`}</div>
       </PriceHistoryBlock>
       <PriceHistoryBlock isPlus={state.d7}>
         <div>7d ago</div>
-        <div>{`${state.d7} %`}</div>
+        <div>{state.d7 > 0 ? `+${state.d7} %` : `${state.d7} %`}</div>
       </PriceHistoryBlock>
       <PriceHistoryBlock isPlus={state.d30}>
         <div>30d ago</div>
-        <div>{`${state.d30} %`}</div>
+        <div>{state.d30 > 0 ? `+${state.d30} %` : `${state.d30} %`}</div>
       </PriceHistoryBlock>
       <PriceHistoryBlock isPlus={state.y1}>
         <div>1y ago</div>
-        <div>{`${state.y1} %`}</div>
+        <div>{state.y1 > 0 ? `+${state.y1} %` : `${state.y1} %`}</div>
       </PriceHistoryBlock>
     </>
   );
