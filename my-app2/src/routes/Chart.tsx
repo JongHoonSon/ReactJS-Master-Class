@@ -1,5 +1,6 @@
 import { useQuery } from "react-query";
 import { fetchCoinHistory } from "../api";
+import ApexChart from "react-apexcharts";
 
 interface ChartProps {
   coinId: string;
@@ -20,7 +21,55 @@ function Chart({ coinId }: ChartProps) {
   const { isLoading, data } = useQuery<IHistorical[]>(["ohlcv", coinId], () =>
     fetchCoinHistory(coinId)
   );
-  return <h1>{coinId} from Chart</h1>;
+  return (
+    <div>
+      {isLoading ? (
+        "Loading chart..."
+      ) : (
+        <ApexChart
+          type="line"
+          series={[
+            {
+              name: "Price",
+              data: data?.map((price) => price.close) as number[],
+            },
+          ]}
+          options={{
+            theme: {
+              mode: "dark",
+            },
+            chart: {
+              toolbar: {
+                show: false,
+              },
+              background: "transparent",
+            },
+            grid: {
+              show: false,
+            },
+            stroke: {
+              curve: "smooth",
+              width: 5,
+            },
+            yaxis: {
+              show: false,
+            },
+            xaxis: {
+              labels: {
+                show: false,
+              },
+              axisTicks: {
+                show: false,
+              },
+              axisBorder: {
+                show: false,
+              },
+            },
+          }}
+        ></ApexChart>
+      )}
+    </div>
+  );
 }
 
 export default Chart;
