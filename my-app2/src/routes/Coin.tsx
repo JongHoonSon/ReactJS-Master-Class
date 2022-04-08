@@ -149,7 +149,7 @@ function Coin() {
   const chartMatch = useRouteMatch("/:coinId/chart");
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
     ["info", coinId],
-    () => fetchCoinInfo(coinId)
+    () => fetchCoinInfo(coinId) // -> fetchCoinInfo(coinId) 는 바로 호출되는 방식이므로 익명 함수를 하나 만들어 해당 함수는 fetchCoinInfo(coinId)를 리턴하는 방식으로 동작하도록 설계하면 fetcher가 익명함수를 원할 때 () 로 실행할 수 있게 된다.
   );
   const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(
     ["tickers", coinId],
