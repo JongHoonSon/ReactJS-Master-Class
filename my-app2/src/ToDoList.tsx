@@ -24,12 +24,21 @@ import { useForm } from "react-hook-form";
 //   );
 // }
 
+interface IForm {
+  email: string;
+  firstName: string;
+  lastName: string;
+  userName: string;
+  password: string;
+  password2: string;
+}
+
 function ToDoList() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<IForm>();
   const onValid = (data: any) => {
     console.log(data);
   };
