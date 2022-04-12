@@ -50,7 +50,7 @@ function ToDoList() {
           placeholder="Username"
         />
         <input
-          {...register("password", { required: true })}
+          {...register("password", { required: "Password is required" })}
           placeholder="Password"
         />
         <input
