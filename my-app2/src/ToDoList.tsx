@@ -31,7 +31,10 @@ function ToDoList() {
   };
   return (
     <div>
-      <form onSubmit={handleSubmit(onValid)}>
+      <form
+        style={{ display: "flex", flexDirection: "column" }}
+        onSubmit={handleSubmit(onValid)}
+      >
         <input
           {...(register("email"), { require: true })}
           placeholder="Email"
@@ -45,7 +48,7 @@ function ToDoList() {
           placeholder="Last Name"
         />
         <input
-          {...(register("username"), { require: true })}
+          {...(register("username"), { require: true, minLength: 10 })}
           placeholder="Username"
         />
         <input
