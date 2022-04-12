@@ -53,7 +53,7 @@ function ToDoList() {
           placeholder="Username"
         />
         <input
-          {...(register("password"), { require: true })}
+          {...(register("password"), { require: "Password is required." })}
           placeholder="Password"
         />
         <input
