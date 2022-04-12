@@ -75,7 +75,8 @@ function ToDoList() {
         <input
           {...register("firstName", {
             required: "write here",
-            validate: (value) => value.includes("nico"),
+            validate: (value) =>
+              value.includes("nico") ? "no nicos allowed" : true,
           })}
           placeholder="First Name"
         />
