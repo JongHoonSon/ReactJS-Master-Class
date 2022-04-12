@@ -31,6 +31,7 @@ interface IForm {
   userName: string;
   password: string;
   password2: string;
+  extraError?: string;
 }
 
 function ToDoList() {
@@ -48,6 +49,7 @@ function ToDoList() {
     if (data.password !== data.password2) {
       setError("password2", { message: "Password are not the same" });
     }
+    setError("extraError", { message: "Server offline." });
   };
   return (
     <div>
@@ -98,6 +100,7 @@ function ToDoList() {
         />
         <span>{errors?.password2?.message}</span>
         <button>Add</button>
+        <span>{errors?.extraError?.message}</span>
       </form>
     </div>
   );
