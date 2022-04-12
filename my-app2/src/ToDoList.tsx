@@ -25,11 +25,14 @@ import { useForm } from "react-hook-form";
 // }
 
 function ToDoList() {
-  const { register, handleSubmit, formState } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const onValid = (data: any) => {
     console.log(data);
   };
-  console.log(formState.errors);
   return (
     <div>
       <form
@@ -38,7 +41,7 @@ function ToDoList() {
       >
         <input
           {...register("email", {
-            required: true,
+            required: "Email is required",
             pattern: {
               value: /^[A-Za-z0-9._%+-]+@naver.com$/,
               message: "Only naver.com emails allowed",
@@ -46,6 +49,7 @@ function ToDoList() {
           })}
           placeholder="Email"
         />
+        <span>{errors?.email?.message}</span>
         <input
           {...register("firstName", { required: true })}
           placeholder="First Name"
@@ -72,6 +76,7 @@ function ToDoList() {
           {...register("password2", { required: true })}
           placeholder="Password2"
         />
+
         <button>Add</button>
       </form>
     </div>
