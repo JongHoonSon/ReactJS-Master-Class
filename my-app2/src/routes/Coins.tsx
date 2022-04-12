@@ -78,7 +78,7 @@ function Coins() {
       </Helmet>
       <Header>
         <Title>Coins</Title>
-        <button onClick={() => setterFn(true)}>Toggle Mode</button>
+        <button onClick={() => setterFn((prev) => !prev)}>Toggle Mode</button>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>
