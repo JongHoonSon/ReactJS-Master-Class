@@ -47,7 +47,11 @@ function ToDoList() {
   });
   const onValid = (data: IForm) => {
     if (data.password !== data.password2) {
-      setError("password2", { message: "Password are not the same" });
+      setError(
+        "password2",
+        { message: "Password are not the same" },
+        { shouldFocus: true }
+      );
     }
     setError("extraError", { message: "Server offline." });
   };
