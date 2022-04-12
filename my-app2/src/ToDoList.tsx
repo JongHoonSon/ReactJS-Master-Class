@@ -24,12 +24,18 @@ import { useForm } from "react-hook-form";
 //   );
 // }
 
-function toDoList() {
+function ToDoList() {
   const { register, watch } = useForm();
+  console.log(watch());
   return (
     <div>
       <form>
-        <input {...register("toDo")} placeholder="Write a to do" />
+        <input {...register("email")} placeholder="Email" />
+        <input {...register("firstName")} placeholder="First Name" />
+        <input {...register("lastName")} placeholder="Last Name" />
+        <input {...register("username")} placeholder="Username" />
+        <input {...register("password")} placeholder="Password" />
+        <input {...register("password2")} placeholder="Password2" />
         <button>Add</button>
       </form>
     </div>
