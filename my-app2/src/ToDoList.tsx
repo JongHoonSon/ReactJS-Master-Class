@@ -36,28 +36,25 @@ function ToDoList() {
         style={{ display: "flex", flexDirection: "column" }}
         onSubmit={handleSubmit(onValid)}
       >
+        <input {...register("email", { required: true })} placeholder="Email" />
         <input
-          {...(register("email"), { require: true })}
-          placeholder="Email"
-        />
-        <input
-          {...(register("firstName"), { require: true })}
+          {...register("firstName", { required: true })}
           placeholder="First Name"
         />
         <input
-          {...(register("lastName"), { require: true })}
+          {...register("lastName", { required: true })}
           placeholder="Last Name"
         />
         <input
-          {...(register("username"), { require: true, minLength: 10 })}
+          {...register("userName", { required: true })}
           placeholder="Username"
         />
         <input
-          {...(register("password"), { require: "Password is required." })}
+          {...register("password", { required: true })}
           placeholder="Password"
         />
         <input
-          {...(register("password2"), { require: true })}
+          {...register("password2", { required: true })}
           placeholder="Password2"
         />
         <button>Add</button>
