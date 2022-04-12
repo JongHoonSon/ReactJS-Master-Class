@@ -38,7 +38,7 @@ const Header = styled.header`
 
 const Btn = styled.button`
   position: absolute;
-  color: white;
+  color: ${(props) => props.theme.textColor};
   background-color: ${(props) => props.theme.bgColor};
   border: 0;
   outline: 0;
