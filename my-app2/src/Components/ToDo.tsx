@@ -22,6 +22,11 @@ function ToDo({ text, category, id }: IToDo) {
       ];
     });
   };
+  const handleDelete = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setToDos((oldToDos) => {
+      return oldToDos.filter((todo) => todo.id !== id);
+    });
+  };
   return (
     <li>
       <span>{text}</span>
@@ -40,6 +45,7 @@ function ToDo({ text, category, id }: IToDo) {
           Done
         </button>
       )}
+      <button onClick={handleDelete}>DELETE</button>
     </li>
   );
 }
