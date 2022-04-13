@@ -15,6 +15,10 @@ export const toDoSelector = selector({
   key: "toDoSelector",
   get: ({ get }) => {
     const toDos = get(toDoState);
-    return toDos.length;
+    return [
+      toDos.filter((todo) => todo.category === "TO_DO"),
+      toDos.filter((todo) => todo.category === "DOING"),
+      toDos.filter((todo) => todo.category === "DONE"),
+    ];
   },
 });
