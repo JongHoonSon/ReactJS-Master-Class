@@ -6,13 +6,18 @@ import {
   useSetRecoilState,
 } from "recoil";
 
-const toDoState = atom({
+const toDoState = atom<IToDo[]>({
   key: "toDo",
   default: [],
 });
 
 interface IForm {
   toDo: string;
+}
+
+interface IToDo {
+  text: string;
+  category: "TO_DO" | "DOING" | "DONE";
 }
 
 function ToDoList() {
