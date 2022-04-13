@@ -16,11 +16,17 @@ function ToDoList() {
       <h1>To Dos</h1>
       <hr />
       <select value={category} onInput={onInput}>
-        <option value="To_Do">To Do</option>
+        <option value="To_DO">To Do</option>
         <option value="DOING">Doing</option>
         <option value="DONE">Done</option>
       </select>
       <CreateToDo />
+      {category === "TO_DO" &&
+        toDo.map((aToDo) => <ToDo key={aToDo.id} {...aToDo} />)}
+      {category === "DOING" &&
+        doing.map((aToDo) => <ToDo key={aToDo.id} {...aToDo} />)}
+      {category === "DONE" &&
+        done.map((aToDo) => <ToDo key={aToDo.id} {...aToDo} />)}
     </div>
   );
 }
