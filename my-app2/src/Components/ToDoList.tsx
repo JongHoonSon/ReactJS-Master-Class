@@ -17,6 +17,7 @@ interface IForm {
 
 interface IToDo {
   text: string;
+  id: number;
   category: "TO_DO" | "DOING" | "DONE";
 }
 
@@ -25,12 +26,11 @@ function ToDoList() {
   const { register, handleSubmit, setValue } = useForm<IForm>({});
   const handleValid = (data: IForm) => {
     setToDos((oldToDos) => [
-      { text: data.toDo, category: "TO_DO" },
+      { text: data.toDo, id: Date.now(), category: "TO_DO" },
       ...oldToDos,
     ]);
     setValue("toDo", "");
   };
-  console.log(toDos);
   return (
     <div>
       <h1>To Dos</h1>
