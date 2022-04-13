@@ -32,6 +32,12 @@ function ToDoList() {
     setValue("category", "");
   };
   useEffect(() => {
+    setCategories(JSON.parse(localStorage.getItem("ct") || "[]"));
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("ct", JSON.stringify(categories));
+  }, categories);
+  useEffect(() => {
     localStorage.setItem("todo", JSON.stringify(toDoList));
   }, toDoList);
   console.log(toDoList);
