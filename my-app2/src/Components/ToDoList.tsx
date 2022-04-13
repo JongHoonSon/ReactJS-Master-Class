@@ -12,6 +12,8 @@ function ToDoList() {
   };
   return (
     <div>
+      <h1>To Dos</h1>
+      <hr />
       <form onSubmit={handleSubmit(onSubmit)}>
         <input
           {...register("toDo", {
@@ -21,6 +23,7 @@ function ToDoList() {
         />
         <button>Add</button>
       </form>
+      <ul></ul>
     </div>
   );
 }
