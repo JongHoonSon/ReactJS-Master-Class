@@ -16,7 +16,7 @@ function ToDoList() {
       <h1>To Dos</h1>
       <hr />
       <select value={category} onInput={onInput}>
-        <option value="To_DO">To Do</option>
+        <option value="TO_DO">To Do</option>
         <option value="DOING">Doing</option>
         <option value="DONE">Done</option>
       </select>
