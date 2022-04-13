@@ -1,20 +1,27 @@
+import React from "react";
 import { IToDo } from "../atoms";
 
 function ToDo({ text, category }: IToDo) {
-  const onClick = (clickedCategory: IToDo["category"]) => {
-    console.log("i wanna go to : ", clickedCategory);
+  const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    console.log("i wanna go to : ", event.currentTarget.name);
   };
   return (
     <li>
       <span>{text}</span>
       {category !== "DOING" && (
-        <button onClick={() => onClick("DOING")}>Doing</button>
+        <button name="DOING" onClick={onClick}>
+          Doing
+        </button>
       )}
       {category !== "TO_DO" && (
-        <button onClick={() => onClick("TO_DO")}>To Do</button>
+        <button name="TO_DO" onClick={onClick}>
+          To Do
+        </button>
       )}
       {category !== "DONE" && (
-        <button onClick={() => onClick("DONE")}>Done</button>
+        <button name="DONE" onClick={onClick}>
+          Done
+        </button>
       )}
     </li>
   );
