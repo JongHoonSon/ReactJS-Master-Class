@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
@@ -17,6 +17,7 @@ interface IForm {
 
 function ToDoList() {
   const toDos = useRecoilValue(toDoSelector);
+  const toDoList = useRecoilValue(toDoState);
   const { register, handleSubmit, setValue } = useForm<IForm>();
   const [categories, setCategories] = useRecoilState(categoriesState);
   const [category, setCategory] = useRecoilState(categoryState);
@@ -30,8 +31,10 @@ function ToDoList() {
     ]);
     setValue("category", "");
   };
-  // console.log(categories);
-  // console.log("category", category);
+  useEffect(() => {
+    localStorage.setItem("todo", JSON.stringify(toDoList));
+  }, toDoList);
+  console.log(toDoList);
   return (
     <div>
       <h1>To Dos</h1>
@@ -45,7 +48,7 @@ function ToDoList() {
         />
         <button>Add category</button>
       </form>
-      <select value={category.text} onInput={onInput}>
+      <select value={category} onInput={onInput}>
         {categories.map((ct) => (
           <option value={ct.text}>{ct.text}</option>
         ))}
