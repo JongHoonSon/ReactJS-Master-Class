@@ -31,9 +31,9 @@ function ToDo({ text, category, id }: IToDo) {
   return (
     <li>
       <span>{text}</span>
-      {categories.map((category) => (
-        <button name={category.text} onClick={onClick}>
-          {category.text}
+      {categories.map((ct) => (
+        <button name={ct.text} onClick={onClick}>
+          {ct.text}
         </button>
       ))}
       <button onClick={handleDelete}>DELETE</button>
