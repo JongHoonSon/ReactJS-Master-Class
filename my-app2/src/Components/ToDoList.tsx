@@ -16,7 +16,7 @@ interface IForm {
 }
 
 function ToDoList() {
-  const [value, modFn] = useRecoilState(toDoState);
+  const [toDos, setToDos] = useRecoilState(toDoState);
   // const value = useRecoilValue(toDoState);
   // const modFn = useSetRecoilState(toDoState);
   const { register, handleSubmit, setValue } = useForm<IForm>({});
