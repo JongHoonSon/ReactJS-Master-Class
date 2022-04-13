@@ -17,6 +17,8 @@ function CreateToDo() {
     ]);
     setValue("toDo", "");
   };
+  // const handleValid = () => {};
+  // console.log("category cre", category);
   return (
     <form onSubmit={handleSubmit(handleValid)}>
       <input
