@@ -23,15 +23,19 @@ interface IToDo {
 function ToDoList() {
   const [toDos, setToDos] = useRecoilState(toDoState);
   const { register, handleSubmit, setValue } = useForm<IForm>({});
-  const onSubmit = (data: IForm) => {
-    console.log("add to do", data.toDo);
+  const handleValid = (data: IForm) => {
+    setToDos((oldToDos) => [
+      { text: data.toDo, category: "TO_DO" },
+      ...oldToDos,
+    ]);
     setValue("toDo", "");
   };
+  console.log(toDos);
   return (
     <div>
       <h1>To Dos</h1>
       <hr />
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(handleValid)}>
         <input
           {...register("toDo", {
             required: "Please write a To Do",
