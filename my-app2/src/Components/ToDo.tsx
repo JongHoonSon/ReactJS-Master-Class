@@ -10,7 +10,11 @@ function ToDo({ text, category, id }: IToDo) {
     } = event;
     setToDos((oldToDos) => {
       const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
+      const oldToDo = oldToDos[targetIndex];
+      const newTodo = { text, id, category: name };
       console.log(targetIndex);
+      console.log(oldToDo);
+      console.log(newTodo);
       return oldToDos;
     });
   };
