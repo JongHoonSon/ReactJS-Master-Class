@@ -1,12 +1,12 @@
 import { IToDo } from "../atoms";
 
-function ToDo(text: IToDo) {
+function ToDo({ text, category }: IToDo) {
   return (
     <li>
       <span>{text}</span>
-      <button>Doing</button>
-      <button>To Do</button>
-      <button>Done</button>
+      {category !== "DOING" && <button>Doing</button>}
+      {category !== "TO_DO" && <button>To Do</button>}
+      {category !== "DONE" && <button>Done</button>}
     </li>
   );
 }
