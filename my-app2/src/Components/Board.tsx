@@ -29,3 +29,5 @@ function Board({ toDos, boardId }: IBoardProps) {
     </Droppable>
   );
 }
+
+export default Board;
