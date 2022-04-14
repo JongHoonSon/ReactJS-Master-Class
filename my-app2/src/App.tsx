@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 
 import styled from "styled-components";
 import { toDoState } from "./atoms";
-import Board, { Area } from "./Components/Board";
+import Board from "./Components/Board";
 
 const Wrapper = styled.div`
   display: flex;
@@ -76,23 +76,21 @@ function App() {
           ))}
         </Boards>
         <Droppable droppableId="del">
-          {(magic, info) => (
-            <Area
+          {(magic) => (
+            <div
               style={{
                 position: "absolute",
                 width: "100px",
-                height: "100px",
+                height: "50px",
                 bottom: "100px",
                 backgroundColor: "rgba(0,0,0,0.5)",
+                textAlign: "center",
               }}
-              isDraggingOver={info.isDraggingOver}
-              isDraggingFromThis={Boolean(info.draggingFromThisWith)}
               ref={magic.innerRef}
               {...magic.droppableProps}
             >
               Delete Here
-              {magic.placeholder}
-            </Area>
+            </div>
           )}
         </Droppable>
       </Wrapper>
