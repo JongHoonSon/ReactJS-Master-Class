@@ -29,10 +29,11 @@ interface IForm {
 
 function App() {
   const [toDos, setToDos] = useRecoilState(toDoState);
-  const { register, handleSubmit } = useForm<IForm>();
+  const { register, handleSubmit, setValue } = useForm<IForm>();
   const onValid = ({ board }: IForm) => {
     console.log(board);
     setToDos({ ...toDos, [board]: [] });
+    setValue("board", "");
   };
   const onDragEnd = (info: DropResult) => {
     console.log(info);
