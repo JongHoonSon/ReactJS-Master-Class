@@ -39,6 +39,19 @@ function App() {
         };
       });
     }
+    if (destination?.droppableId !== source.droppableId) {
+      setToDos((allBoards) => {
+        const sourceBoardCopy = [...allBoards[source.droppableId]];
+        sourceBoardCopy.splice(source.index, 1);
+        const destinationBoardCopy = [...allBoards[destination.droppableId]];
+        destinationBoardCopy.splice(destination?.index, 0, draggableId);
+        return {
+          ...allBoards,
+          [source.droppableId]: sourceBoardCopy,
+          [destination.droppableId]: destinationBoardCopy,
+        };
+      });
+    }
   };
   return (
     <DragDropContext onDragEnd={onDragEnd}>
