@@ -37,7 +37,9 @@ const Card = styled.div`
 
 function App() {
   const [toDos, setToDos] = useRecoilState(toDoState);
-  const onDragEnd = () => {};
+  const onDragEnd = (args: any) => {
+    console.log(args);
+  };
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Wrapper>
