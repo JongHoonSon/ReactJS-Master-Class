@@ -57,6 +57,10 @@ interface IForm {
 function Board({ toDos, boardId }: IBoardProps) {
   const { register, handleSubmit, setValue } = useForm<IForm>();
   const onValid = ({ toDo }: IForm) => {
+    const newToDo = {
+      id: Date.now(),
+      text: toDo,
+    };
     setValue("toDo", "");
   };
   return (
