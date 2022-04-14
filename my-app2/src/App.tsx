@@ -33,26 +33,36 @@ const Card = styled.div`
   background-color: ${(props) => props.theme.cardColor};
 `;
 
+const toDos = ["a", "b", "c", "d", "e", "f"];
+
 function App() {
   const onDragEnd = () => {};
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div>
-        <Droppable droppableId="one">
-          {(magic) => (
-            <ul ref={magic.innerRef} {...magic.droppableProps}>
-              <Draggable draggableId="first" index={0}>
-                {(magic) => (
-                  <li ref={magic.innerRef} {...magic.draggableProps}>
-                    <span {...magic.dragHandleProps}>O</span>
-                    One
-                  </li>
-                )}
-              </Draggable>
-            </ul>
-          )}
-        </Droppable>
-      </div>
+      <Wrapper>
+        <Boards>
+          <Droppable droppableId="one">
+            {(magic) => (
+              <Board ref={magic.innerRef} {...magic.droppableProps}>
+                {toDos.map((toDo, index) => (
+                  <Draggable draggableId={toDo} index={index}>
+                    {(magic) => (
+                      <Card
+                        ref={magic.innerRef}
+                        {...magic.dragHandleProps}
+                        {...magic.draggableProps}
+                      >
+                        {toDo}
+                      </Card>
+                    )}
+                  </Draggable>
+                ))}
+                {magic.placeholder}
+              </Board>
+            )}
+          </Droppable>
+        </Boards>
+      </Wrapper>
     </DragDropContext>
   );
 }
