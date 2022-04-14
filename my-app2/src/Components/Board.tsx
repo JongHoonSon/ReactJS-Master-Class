@@ -4,8 +4,7 @@ import DraggableCard from "./DraggableCard";
 
 const Wrapper = styled.div`
   width: 300px;
-  padding: 20px 10px;
-  padding-top: 10px;
+  padding: 10px 0px;
   background-color: ${(props) => props.theme.boardColor};
   border-radius: 5px;
   min-height: 300px;
@@ -35,6 +34,7 @@ const Area = styled.div<IAreaProps>`
     props.isDraggingOver ? "pink" : props.isDraggingFromThis ? "red" : "blue"};
   flex-grow: 1;
   transition: background-color 0.3s ease-in-out;
+  padding: 20px;
 `;
 
 function Board({ toDos, boardId }: IBoardProps) {
