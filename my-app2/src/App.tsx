@@ -97,7 +97,7 @@ function App() {
                 position: "absolute",
                 width: "100px",
                 height: "50px",
-                bottom: "100px",
+                left: "100px",
                 backgroundColor: "rgba(0,0,0,0.5)",
                 textAlign: "center",
               }}
