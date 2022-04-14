@@ -39,9 +39,19 @@ function App() {
   };
   const onDragEnd = (info: DropResult) => {
     console.log(info);
-    const { destination, draggableId, source } = info;
+    const { destination, draggableId, source, type } = info;
     if (!destination) return;
-    if (destination?.droppableId === "del") {
+    if (type === "LeaderBoard") {
+      setToDos((allBoards) => {
+        const boards = Object.entries(allBoards);
+        const [item] = boards.splice(source.index, 1);
+        boards.splice(destination.index, 0, item);
+        return boards.reduce(
+          (rest, [key, arr]) => ({ ...rest, [key]: arr }),
+          {}
+        );
+      });
+    } else if (destination?.droppableId === "del") {
       console.log("welcome");
       setToDos((allBoards) => {
         const boardCopy = [...allBoards[source.droppableId]];
@@ -92,8 +102,8 @@ function App() {
       </form>
       <Wrapper>
         <Droppable
-          type="LeadrBoard"
-          droppableId="LeadrBoard"
+          type="LeaderBoard"
+          droppableId="LeaderBoard"
           direction="horizontal"
         >
           {(props) => (
