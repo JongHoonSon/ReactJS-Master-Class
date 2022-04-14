@@ -22,7 +22,7 @@ const Boards = styled.div`
   display: grid;
   width: 100%;
   gap: 10px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
 `;
 
 interface IForm {
@@ -91,11 +91,25 @@ function App() {
         <button>Add</button>
       </form>
       <Wrapper>
-        <Boards>
-          {Object.keys(toDos).map((boardId) => (
-            <Board boardId={boardId} key={boardId} toDos={toDos[boardId]} />
-          ))}
-        </Boards>
+        <Droppable
+          type="LeadrBoard"
+          droppableId="LeadrBoard"
+          direction="horizontal"
+        >
+          {(props) => (
+            <Boards ref={props.innerRef} {...props.droppableProps}>
+              {Object.keys(toDos).map((boardId, index) => (
+                <Board
+                  boardId={boardId}
+                  key={boardId}
+                  index={index}
+                  toDos={toDos[boardId]}
+                />
+              ))}
+              {props.placeholder}
+            </Boards>
+          )}
+        </Droppable>
         <Droppable droppableId="del">
           {(magic) => (
             <div
