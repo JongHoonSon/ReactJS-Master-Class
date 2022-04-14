@@ -63,6 +63,17 @@ function ToDoList() {
       {toDos?.map((toDo) => (
         <ToDo key={toDo.id} {...toDo} />
       ))}
+      <div>
+        <hr />
+        <span>
+          *Sorry, I deployed Coin-App and Todo-App to same URL <br />
+          so my Coin-App is inactive on gh-pages :( <br />
+          This is my ReactJS Coin-App's link -----{" "}
+          <a href="https://jonghoonson.github.io/ReactJS-Coin-App/">
+            ((((( Here )))))
+          </a>{" "}
+        </span>
+      </div>
     </div>
   );
 }
