@@ -9,6 +9,8 @@ const Wrapper = styled.div`
   background-color: ${(props) => props.theme.boardColor};
   border-radius: 5px;
   min-height: 300px;
+  display: flex;
+  flex-direction: column;
 `;
 
 interface IBoardProps {
@@ -25,6 +27,7 @@ const Title = styled.h2`
 
 const Area = styled.div`
   background-color: blue;
+  flex-grow: 1;
 `;
 
 function Board({ toDos, boardId }: IBoardProps) {
