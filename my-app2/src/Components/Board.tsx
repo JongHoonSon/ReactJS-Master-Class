@@ -15,9 +15,9 @@ interface IBoardProps {
   boardId: string;
 }
 
-function Board({ toDos }: IBoardProps) {
+function Board({ toDos, boardId }: IBoardProps) {
   return (
-    <Droppable droppableId="one">
+    <Droppable droppableId={boardId}>
       {(magic) => (
         <Wrapper ref={magic.innerRef} {...magic.droppableProps}>
           {toDos.map((toDo, index) => (
