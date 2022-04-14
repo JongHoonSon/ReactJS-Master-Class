@@ -1,9 +1,9 @@
-import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
 
 import styled from "styled-components";
 import { toDoState } from "./atoms";
-import Board from "./Components/Board";
+import Board, { Area } from "./Components/Board";
 
 const Wrapper = styled.div`
   display: flex;
@@ -28,31 +28,43 @@ function App() {
     console.log(info);
     const { destination, draggableId, source } = info;
     if (!destination) return;
-    if (destination?.droppableId === source.droppableId) {
+    if (destination?.droppableId === "del") {
+      console.log("welcome");
       setToDos((allBoards) => {
         const boardCopy = [...allBoards[source.droppableId]];
-        const taskObj = boardCopy[source.index];
         boardCopy.splice(source.index, 1);
-        boardCopy.splice(destination?.index, 0, taskObj);
         return {
           ...allBoards,
           [source.droppableId]: boardCopy,
         };
       });
-    }
-    if (destination?.droppableId !== source.droppableId) {
-      setToDos((allBoards) => {
-        const sourceBoardCopy = [...allBoards[source.droppableId]];
-        const taskObj = sourceBoardCopy[source.index];
-        sourceBoardCopy.splice(source.index, 1);
-        const destinationBoardCopy = [...allBoards[destination.droppableId]];
-        destinationBoardCopy.splice(destination?.index, 0, taskObj);
-        return {
-          ...allBoards,
-          [source.droppableId]: sourceBoardCopy,
-          [destination.droppableId]: destinationBoardCopy,
-        };
-      });
+    } else {
+      if (destination?.droppableId === source.droppableId) {
+        setToDos((allBoards) => {
+          const boardCopy = [...allBoards[source.droppableId]];
+          const taskObj = boardCopy[source.index];
+          boardCopy.splice(source.index, 1);
+          boardCopy.splice(destination?.index, 0, taskObj);
+          return {
+            ...allBoards,
+            [source.droppableId]: boardCopy,
+          };
+        });
+      }
+      if (destination?.droppableId !== source.droppableId) {
+        setToDos((allBoards) => {
+          const sourceBoardCopy = [...allBoards[source.droppableId]];
+          const taskObj = sourceBoardCopy[source.index];
+          sourceBoardCopy.splice(source.index, 1);
+          const destinationBoardCopy = [...allBoards[destination.droppableId]];
+          destinationBoardCopy.splice(destination?.index, 0, taskObj);
+          return {
+            ...allBoards,
+            [source.droppableId]: sourceBoardCopy,
+            [destination.droppableId]: destinationBoardCopy,
+          };
+        });
+      }
     }
   };
   return (
@@ -63,6 +75,26 @@ function App() {
             <Board boardId={boardId} key={boardId} toDos={toDos[boardId]} />
           ))}
         </Boards>
+        <Droppable droppableId="del">
+          {(magic, info) => (
+            <Area
+              style={{
+                position: "absolute",
+                width: "100px",
+                height: "100px",
+                bottom: "100px",
+                backgroundColor: "rgba(0,0,0,0.5)",
+              }}
+              isDraggingOver={info.isDraggingOver}
+              isDraggingFromThis={Boolean(info.draggingFromThisWith)}
+              ref={magic.innerRef}
+              {...magic.droppableProps}
+            >
+              Delete Here
+              {magic.placeholder}
+            </Area>
+          )}
+        </Droppable>
       </Wrapper>
     </DragDropContext>
   );
