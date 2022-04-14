@@ -23,6 +23,10 @@ const Title = styled.h2`
   font-size: 18px;
 `;
 
+const Area = styled.div`
+  background-color: blue;
+`;
+
 function Board({ toDos, boardId }: IBoardProps) {
   return (
     <Wrapper>
@@ -30,16 +34,12 @@ function Board({ toDos, boardId }: IBoardProps) {
       <Droppable droppableId={boardId}>
         {(magic) => (
           // 여기 있는 div
-          <div
-            style={{ backgroundColor: "red" }}
-            ref={magic.innerRef}
-            {...magic.droppableProps}
-          >
+          <Area ref={magic.innerRef} {...magic.droppableProps}>
             {toDos.map((toDo, index) => (
               <DraggableCard key={toDo} index={index} toDo={toDo} />
             ))}
             {magic.placeholder}
-          </div>
+          </Area>
         )}
       </Droppable>
     </Wrapper>
