@@ -16,14 +16,6 @@ function App() {
                   </li>
                 )}
               </Draggable>
-              <Draggable draggableId="second" index={1}>
-                {(magic) => (
-                  <li ref={magic.innerRef} {...magic.draggableProps}>
-                    <span {...magic.dragHandleProps}>O</span>
-                    Two
-                  </li>
-                )}
-              </Draggable>
             </ul>
           )}
         </Droppable>
