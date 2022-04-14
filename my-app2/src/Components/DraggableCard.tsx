@@ -24,6 +24,7 @@ function DraggableCard({ toDo, index }: IDraggableCardProps) {
       {(magic, snapshot) => (
         <Card
           isDragging={snapshot.isDragging}
+          //
           ref={magic.innerRef}
           {...magic.dragHandleProps}
           {...magic.draggableProps}
