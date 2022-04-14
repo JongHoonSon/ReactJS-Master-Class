@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
@@ -5,6 +6,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { toDoState } from "./atoms";
 import Board from "./Components/Board";
+import { saveToDos } from "./handleLocalStorage";
 
 const Wrapper = styled.div`
   display: flex;
@@ -78,6 +80,9 @@ function App() {
       }
     }
   };
+  useEffect(() => {
+    saveToDos(toDos);
+  }, [toDos]);
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <form onSubmit={handleSubmit(onValid)}>
