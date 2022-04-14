@@ -9,10 +9,26 @@ function App() {
           {(magic) => (
             <ul ref={magic.innerRef} {...magic.droppableProps}>
               <Draggable draggableId="first" index={0}>
-                {() => <li>One</li>}
+                {(magic) => (
+                  <li
+                    ref={magic.innerRef}
+                    {...magic.dragHandleProps}
+                    {...magic.draggableProps}
+                  >
+                    One
+                  </li>
+                )}
               </Draggable>
               <Draggable draggableId="second" index={1}>
-                {() => <li>Two</li>}
+                {(magic) => (
+                  <li
+                    ref={magic.innerRef}
+                    {...magic.dragHandleProps}
+                    {...magic.draggableProps}
+                  >
+                    Two
+                  </li>
+                )}
               </Draggable>
             </ul>
           )}
