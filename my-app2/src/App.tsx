@@ -44,6 +44,9 @@ const Overlay = styled(motion.div)`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 function App() {
@@ -63,7 +66,9 @@ function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-          ></Overlay>
+          >
+            <Box style={{ width: 400, height: 200 }} />
+          </Overlay>
         ) : null}
       </AnimatePresence>
     </Wrapper>
