@@ -1,9 +1,14 @@
 import styled from "styled-components";
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useTransform,
+  useViewportScroll,
+} from "framer-motion";
 import { useEffect, useRef } from "react";
 
 const Wrapper = styled(motion.div)`
-  height: 100vh;
+  height: 500vh;
   width: 100vw;
   display: flex;
   justify-content: center;
@@ -34,6 +39,12 @@ function App() {
   useEffect(() => {
     rotateZ.onChange(() => console.log(rotateZ.get()));
   }, [x]);
+  const { scrollY, scrollYProgress } = useViewportScroll();
+  useEffect(() => {
+    scrollY.onChange(() => {
+      console.log(scrollY.get(), scrollYProgress.get());
+    });
+  }, [scrollY, scrollYProgress]);
   return (
     <Wrapper style={{ background: gradient }}>
       <Box style={{ x, rotateZ }} drag="x" dragSnapToOrigin></Box>
