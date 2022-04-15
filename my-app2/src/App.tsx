@@ -36,7 +36,7 @@ function App() {
   return (
     <Wrapper onClick={toggleClicked}>
       <Box>{!clicked ? <Circle /> : null}</Box>
-      <Box>{!clicked ? null : <Circle />}</Box>
+      <Box>{clicked ? <Circle /> : null}</Box>
     </Wrapper>
   );
 }
