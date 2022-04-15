@@ -17,6 +17,8 @@ const Box = styled(motion.div)`
   background-color: rgba(255, 255, 255, 1);
   border-radius: 40px;
   display: flex;
+  justify-content: center;
+  align-items: center;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
 `;
 
@@ -33,13 +35,8 @@ function App() {
   const toggleClicked = () => setClicked((prev) => !prev);
   return (
     <Wrapper onClick={toggleClicked}>
-      <Box
-        style={{
-          justifyContent: clicked ? "center" : "flex-start",
-          alignItems: clicked ? "center" : "flex-start",
-        }}
-      >
-        <Circle layout />
+      <Box>
+        <Circle />
       </Box>
     </Wrapper>
   );
