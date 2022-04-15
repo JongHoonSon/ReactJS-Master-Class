@@ -30,6 +30,7 @@ function App() {
         variants={boxVariants}
         whileHover="hover"
         whileTap="click"
+        whileDrag={{ backgroundColor: "rgba(0, 0, 0, 1)" }}
       ></Box>
     </Wrapper>
   );
