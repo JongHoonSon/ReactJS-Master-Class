@@ -2,12 +2,17 @@ import styled from "styled-components";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useEffect, useRef } from "react";
 
-const Wrapper = styled.div`
+const Wrapper = styled(motion.div)`
   height: 100vh;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(
+    135deg,
+    rgba(238, 0, 153, 1),
+    rgba(221, 0, 238, 1)
+  );
 `;
 
 const Box = styled(motion.div)`
