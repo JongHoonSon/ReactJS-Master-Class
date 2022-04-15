@@ -39,7 +39,7 @@ const Grid = styled.div`
   }
 `;
 
-const Overlay = styled.div`
+const Overlay = styled(motion.div)`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
@@ -57,7 +57,7 @@ function App() {
         <Box />
         <Box />
       </Grid>
-      {clicked ? <Overlay></Overlay> : null}
+      <AnimatePresence>{clicked ? <Overlay></Overlay> : null}</AnimatePresence>
     </Wrapper>
   );
 }
