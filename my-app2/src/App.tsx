@@ -30,8 +30,8 @@ const boxVariants = {
     opacity: 0,
     scale: 0,
   },
-  visible: { x: 0, opacity: 1, scale: 1 },
-  exit: { x: -500, opacity: 0, scale: 0 },
+  visible: { x: 0, opacity: 1, scale: 1, transition: { duration: 0.5 } },
+  exit: { x: -500, opacity: 0, scale: 0, transition: { duration: 0.5 } },
 };
 
 function App() {
