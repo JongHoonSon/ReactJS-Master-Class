@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { motion, useMotionValue } from "framer-motion";
+import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useEffect, useRef } from "react";
 
 const Wrapper = styled.div`
@@ -22,8 +22,10 @@ const boxVariants = {};
 
 function App() {
   const x = useMotionValue(0);
+  const potato = useTransform(x, [-800, 0, 800], [2, 1, 0]); // x가 -800일 때 2, 0일 때 1, 800일 때 0을 반환함
   useEffect(() => {
-    x.onChange(() => console.log(x.get()));
+    // x.onChange(() => console.log(x.get()));
+    potato.onChange(() => console.log(potato.get()));
   }, [x]);
   return (
     <Wrapper>
