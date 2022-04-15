@@ -52,7 +52,7 @@ function App() {
   };
   return (
     <Wrapper>
-      <AnimatePresence custom={back}>
+      <AnimatePresence exitBeforeEnter custom={back}>
         <Box
           custom={back}
           variants={boxVariants}
