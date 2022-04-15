@@ -20,7 +20,7 @@ const Box = styled(motion.div)`
 function App() {
   return (
     <Wrapper>
-      <Box />
+      <Box animate={{ borderRadius: "100px" }} />
     </Wrapper>
   );
 }
