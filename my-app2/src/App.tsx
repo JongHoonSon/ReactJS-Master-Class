@@ -42,6 +42,7 @@ function App() {
     <Wrapper>
       <AnimatePresence>
         <Box
+          custom={2}
           variants={boxVariants}
           initial="entry"
           animate="center"
