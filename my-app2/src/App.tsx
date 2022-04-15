@@ -29,7 +29,7 @@ function App() {
   }, [x]);
   return (
     <Wrapper>
-      <Box style={{ x }} drag="x" dragSnapToOrigin></Box>
+      <Box style={{ x, scale: potato }} drag="x" dragSnapToOrigin></Box>
     </Wrapper>
   );
 }
