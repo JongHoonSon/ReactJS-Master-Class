@@ -22,7 +22,9 @@ const Box = styled(motion.div)`
 function App() {
   return (
     <Wrapper>
-      <Box />
+      <AnimatePresence>
+        <Box />
+      </AnimatePresence>
     </Wrapper>
   );
 }
