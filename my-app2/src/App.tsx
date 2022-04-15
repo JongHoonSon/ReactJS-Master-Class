@@ -23,12 +23,14 @@ const Box = styled(motion.div)`
 
 function App() {
   const [visible, setVisible] = useState(1);
+  const nextPlease = () => setVisible((prev) => (prev === 10 ? 10 : prev + 1));
   return (
     <Wrapper>
       <AnimatePresence>
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) =>
           i === visible ? <Box key={i}>{i}</Box> : null
         )}
+        <button onClick={nextPlease}>next</button>
       </AnimatePresence>
     </Wrapper>
   );
