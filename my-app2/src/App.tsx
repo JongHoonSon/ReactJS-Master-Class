@@ -31,14 +31,7 @@ const Circle = styled(motion.div)`
 `;
 
 function App() {
-  const [clicked, setClicked] = useState(false);
-  const toggleClicked = () => setClicked((prev) => !prev);
-  return (
-    <Wrapper onClick={toggleClicked}>
-      <Box>{!clicked ? <Circle layoutId="circle" /> : null}</Box>
-      <Box>{clicked ? <Circle layoutId="circle" /> : null}</Box>
-    </Wrapper>
-  );
+  return <Wrapper></Wrapper>;
 }
 
 export default App;
