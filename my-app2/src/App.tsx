@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
 const Wrapper = styled(motion.div)`
   height: 100vh;
@@ -20,11 +21,12 @@ const Box = styled(motion.div)`
 `;
 
 function App() {
+  const [showing, setShowing] = useState(false);
+  const toggleShowing = () => setShowing((prev) => !prev);
   return (
     <Wrapper>
-      <AnimatePresence>
-        <Box />
-      </AnimatePresence>
+      <button onClick={toggleShowing}>Click</button>
+      <AnimatePresence>{showing ? <Box /> : null}</AnimatePresence>
     </Wrapper>
   );
 }
