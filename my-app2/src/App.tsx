@@ -25,13 +25,18 @@ const Box = styled(motion.div)`
 `;
 
 const boxVariants = {
-  entry: {
-    x: 500,
+  entry: (isBack: boolean) => ({
+    x: isBack ? -500 : 500,
     opacity: 0,
     scale: 0,
-  },
+  }),
   center: { x: 0, opacity: 1, scale: 1, transition: { duration: 0.5 } },
-  exit: { x: -500, opacity: 0, scale: 0, transition: { duration: 0.5 } },
+  exit: (isBack: boolean) => ({
+    x: isBack ? 500 : -500,
+    opacity: 0,
+    scale: 0,
+    transition: { duration: 0.5 },
+  }),
 };
 
 function App() {
@@ -47,9 +52,9 @@ function App() {
   };
   return (
     <Wrapper>
-      <AnimatePresence>
+      <AnimatePresence custom={back}>
         <Box
-          custom={2}
+          custom={back}
           variants={boxVariants}
           initial="entry"
           animate="center"
