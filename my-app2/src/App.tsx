@@ -38,6 +38,9 @@ function App() {
       <Box>
         <Circle />
       </Box>
+      <Box>
+        <Circle />
+      </Box>
     </Wrapper>
   );
 }
