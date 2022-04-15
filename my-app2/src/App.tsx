@@ -8,12 +8,12 @@ const Wrapper = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
 `;
 
 const Box = styled(motion.div)`
   width: 400px;
   height: 400px;
+  margin: 100px;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 40px;
   display: flex;
@@ -35,12 +35,8 @@ function App() {
   const toggleClicked = () => setClicked((prev) => !prev);
   return (
     <Wrapper onClick={toggleClicked}>
-      <Box>
-        <Circle />
-      </Box>
-      <Box>
-        <Circle />
-      </Box>
+      <Box>{!clicked ? <Circle /> : null}</Box>
+      <Box>{!clicked ? null : <Circle />}</Box>
     </Wrapper>
   );
 }
