@@ -31,7 +31,14 @@ const Circle = styled(motion.div)`
 `;
 
 function App() {
-  return <Wrapper></Wrapper>;
+  return (
+    <Wrapper>
+      <Box />
+      <Box />
+      <Box />
+      <Box />
+    </Wrapper>
+  );
 }
 
 export default App;
