@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 const Wrapper = styled(motion.div)`
-  height: 200vh;
+  height: 100vh;
   width: 100vw;
   display: flex;
   justify-content: center;
