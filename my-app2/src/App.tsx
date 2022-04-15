@@ -22,7 +22,7 @@ const boxVariants = {};
 function App() {
   return (
     <Wrapper>
-      <Box></Box>
+      <Box whileHover={{ scale: 2 }}></Box>
     </Wrapper>
   );
 }
