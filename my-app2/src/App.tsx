@@ -14,8 +14,6 @@ const Wrapper = styled(motion.div)`
 const Box = styled(motion.div)`
   width: 400px;
   height: 400px;
-  top: 100px;
-  position: absolute;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 40px;
   display: flex;
