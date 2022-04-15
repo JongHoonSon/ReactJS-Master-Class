@@ -20,7 +20,7 @@ const Box = styled(motion.div)`
 function App() {
   return (
     <Wrapper>
-      <Box initial={{ scale: 0 }} animate={{ scale: 1 }} />
+      <Box initial={{ scale: 0 }} animate={{ scale: 1, rotateZ: 360 }} />
     </Wrapper>
   );
 }
