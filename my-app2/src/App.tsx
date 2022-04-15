@@ -28,10 +28,28 @@ const Circle = styled(motion.div)`
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
 `;
 
+const boxVariants = {
+  start: {
+    opacity: 0,
+    scale: 0.5,
+  },
+  end: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      type: "spring",
+      duration: 0.5,
+      delay: 1,
+    },
+  },
+};
+
+const circleVariants = {};
+
 function App() {
   return (
     <Wrapper>
-      <Box>
+      <Box variants={boxVariants} initial="start" animate="end">
         <Circle />
         <Circle />
         <Circle />
