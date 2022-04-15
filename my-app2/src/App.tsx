@@ -44,16 +44,28 @@ const boxVariants = {
   },
 };
 
-const circleVariants = {};
+const circleVariants = {
+  start: {
+    scale: 0,
+  },
+  end: {
+    scale: 2,
+    transition: {
+      type: "spring",
+      bounce: 0.8,
+      delay: 2,
+    },
+  },
+};
 
 function App() {
   return (
     <Wrapper>
       <Box variants={boxVariants} initial="start" animate="end">
-        <Circle />
-        <Circle />
-        <Circle />
-        <Circle />
+        <Circle variants={circleVariants} />
+        <Circle variants={circleVariants} />
+        <Circle variants={circleVariants} />
+        <Circle variants={circleVariants} />
       </Box>
     </Wrapper>
   );
