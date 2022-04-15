@@ -26,7 +26,7 @@ function App() {
   return (
     <Wrapper>
       <Box
-        drag
+        drag="x"
         variants={boxVariants}
         whileHover="hover"
         whileTap="click"
