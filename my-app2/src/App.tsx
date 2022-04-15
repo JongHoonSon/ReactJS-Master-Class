@@ -40,6 +40,7 @@ const boxVariants = {
       type: "spring",
       duration: 0.5,
       delay: 1,
+      delayChildren: 1.5,
     },
   },
 };
@@ -55,7 +56,6 @@ const circleVariants = {
     transition: {
       type: "spring",
       bounce: 0.8,
-      delay: 1.5,
     },
   },
 };
