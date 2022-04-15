@@ -22,14 +22,13 @@ const boxVariants = {};
 
 function App() {
   const x = useMotionValue(0);
-  const potato = useTransform(x, [-800, 0, 800], [2, 1, 0]); // x가 -800일 때 2, 0일 때 1, 800일 때 0을 반환함
+  const rotateZ = useTransform(x, [-800, 800], [-360, 360]); // x가 -800일 때 2, 0일 때 1, 800일 때 0을 반환함
   useEffect(() => {
-    // x.onChange(() => console.log(x.get()));
-    potato.onChange(() => console.log(potato.get()));
+    rotateZ.onChange(() => console.log(rotateZ.get()));
   }, [x]);
   return (
     <Wrapper>
-      <Box style={{ x, scale: potato }} drag="x" dragSnapToOrigin></Box>
+      <Box style={{ x, rotateZ }} drag="x" dragSnapToOrigin></Box>
     </Wrapper>
   );
 }
