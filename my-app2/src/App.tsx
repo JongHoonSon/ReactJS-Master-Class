@@ -41,6 +41,7 @@ const boxVariants = {
       duration: 0.5,
       delay: 1,
       delayChildren: 1.5,
+      staggerChildren: 0.5,
     },
   },
 };
