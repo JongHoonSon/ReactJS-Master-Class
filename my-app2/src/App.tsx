@@ -39,6 +39,13 @@ const Grid = styled.div`
   }
 `;
 
+const Overlay = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+`;
+
 function App() {
   return (
     <Wrapper>
@@ -48,6 +55,7 @@ function App() {
         <Box />
         <Box />
       </Grid>
+      <Overlay></Overlay>
     </Wrapper>
   );
 }
