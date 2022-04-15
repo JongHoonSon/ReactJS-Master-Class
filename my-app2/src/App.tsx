@@ -22,12 +22,13 @@ const Box = styled(motion.div)`
 `;
 
 function App() {
+  const [visible, setVisible] = useState(1);
   return (
     <Wrapper>
       <AnimatePresence>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
-          <Box key={i}>{i}</Box>
-        ))}
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) =>
+          i === visible ? <Box key={i}>{i}</Box> : null
+        )}
       </AnimatePresence>
     </Wrapper>
   );
