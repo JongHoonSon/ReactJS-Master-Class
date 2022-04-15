@@ -47,15 +47,17 @@ const Overlay = styled.div`
 `;
 
 function App() {
+  const [clicked, setClicked] = useState(false);
+  const toggle = () => setClicked((prev) => !prev);
   return (
-    <Wrapper>
+    <Wrapper onClick={toggle}>
       <Grid>
         <Box />
         <Box />
         <Box />
         <Box />
       </Grid>
-      <Overlay></Overlay>
+      {clicked ? <Overlay></Overlay> : null}
     </Wrapper>
   );
 }
