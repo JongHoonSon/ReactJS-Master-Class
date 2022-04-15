@@ -8,7 +8,7 @@ import {
 import { useEffect, useRef } from "react";
 
 const Wrapper = styled(motion.div)`
-  height: 500vh;
+  height: 200vh;
   width: 100vw;
   display: flex;
   justify-content: center;
@@ -36,18 +36,11 @@ function App() {
       "linear-gradient(135deg,rgb(0, 238, 167),rgb(222, 238, 0))",
     ]
   ); // x가 -800일 때 2, 0일 때 1, 800일 때 0을 반환함
-  useEffect(() => {
-    rotateZ.onChange(() => console.log(rotateZ.get()));
-  }, [x]);
-  const { scrollY, scrollYProgress } = useViewportScroll();
-  useEffect(() => {
-    scrollY.onChange(() => {
-      console.log(scrollY.get(), scrollYProgress.get());
-    });
-  }, [scrollY, scrollYProgress]);
+  const { scrollYProgress } = useViewportScroll();
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 5]); // x가 -800일 때 2, 0일 때 1, 800일 때 0을 반환함
   return (
     <Wrapper style={{ background: gradient }}>
-      <Box style={{ x, rotateZ }} drag="x" dragSnapToOrigin></Box>
+      <Box style={{ x, rotateZ, scale }} drag="x" dragSnapToOrigin></Box>
     </Wrapper>
   );
 }
