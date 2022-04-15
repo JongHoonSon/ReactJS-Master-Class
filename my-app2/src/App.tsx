@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const Box = styled.div`
+const Box = styled(motion.div)`
   width: 200px;
   height: 200px;
   background-color: white;
@@ -21,7 +21,6 @@ function App() {
   return (
     <Wrapper>
       <Box />
-      <motion.div></motion.div>
     </Wrapper>
   );
 }
