@@ -46,14 +46,16 @@ const boxVariants = {
 
 const circleVariants = {
   start: {
-    scale: 0,
+    opacity: 0,
+    scale: 0.5,
   },
   end: {
-    scale: 2,
+    opacity: 1,
+    scale: 1,
     transition: {
       type: "spring",
       bounce: 0.8,
-      delay: 2,
+      delay: 1.5,
     },
   },
 };
