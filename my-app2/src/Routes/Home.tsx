@@ -52,16 +52,18 @@ const Row = styled(motion.div)`
 const Box = styled(motion.div)`
   background-color: white;
   height: 200px;
+  color: red;
+  font-size: 64px;
 `;
 
 const rowVariants = {
   hidden: {
-    x: 1000,
+    x: window.outerWidth,
   },
   visible: {
     x: 0,
   },
-  exit: { x: -1000 },
+  exit: { x: -window.outerWidth },
 };
 
 function Home() {
@@ -89,10 +91,11 @@ function Home() {
             <Slider>
               <Row
                 variants={rowVariants}
-                key={index}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
+                transition={{ type: "tween", duration: 1 }}
+                key={index}
               >
                 {[1, 2, 3, 4, 5, 6].map((i) => (
                   <Box key={i}>{i}</Box>
