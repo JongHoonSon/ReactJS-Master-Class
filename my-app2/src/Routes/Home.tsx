@@ -34,8 +34,8 @@ function Home() {
       ) : (
         <>
           <Banner>
-            <Title></Title>
-            <Overview></Overview>
+            <Title>{data?.results[0].title}</Title>
+            <Overview>{data?.results[0].overview}</Overview>
           </Banner>
         </>
       )}
