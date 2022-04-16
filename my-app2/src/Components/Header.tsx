@@ -127,7 +127,10 @@ function Header() {
               clipRule="evenodd"
             ></path>
           </svg>
-          <Input placeholder="Search for movie or tv show..."></Input>
+          <Input
+            animate={{ scaleX: searchOpen ? 1 : 0 }}
+            placeholder="Search for movie or tv show..."
+          ></Input>
         </Search>
       </Col>
     </Nav>
