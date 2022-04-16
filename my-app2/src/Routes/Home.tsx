@@ -6,7 +6,7 @@ import { getMovies, IGetMovieResult } from "../api";
 import { makeImagePath } from "../utils";
 
 const Wrapper = styled.div`
-  background-color: black;
+  background: black;
 `;
 
 const Loader = styled.div`
@@ -63,7 +63,9 @@ const rowVariants = {
   visible: {
     x: 0,
   },
-  exit: { x: -window.outerWidth - 10 },
+  exit: {
+    x: -window.outerWidth - 10,
+  },
 };
 
 function Home() {
@@ -87,22 +89,22 @@ function Home() {
             <Title>{data?.results[0].title}</Title>
             <Overview>{data?.results[0].overview}</Overview>
           </Banner>
-          <AnimatePresence>
-            <Slider>
+          <Slider>
+            <AnimatePresence>
               <Row
                 variants={rowVariants}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                transition={{ type: "tween", duration: 5 }}
+                transition={{ type: "tween", duration: 1 }}
                 key={index}
               >
                 {[1, 2, 3, 4, 5, 6].map((i) => (
                   <Box key={i}>{i}</Box>
                 ))}
               </Row>
-            </Slider>
-          </AnimatePresence>
+            </AnimatePresence>
+          </Slider>
         </>
       )}
     </Wrapper>
