@@ -15,11 +15,20 @@ const Loader = styled.div`
 
 const Banner = styled.div`
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
-const Title = styled.h2``;
+const Title = styled.h2`
+  font-size: 68px;
+  margin-bottom: 20px;
+`;
 
-const Overview = styled.p``;
+const Overview = styled.p`
+  width: 50%;
+  font-size: 30px;
+`;
 
 function Home() {
   const { data, isLoading } = useQuery<IGetMovieResult>(
