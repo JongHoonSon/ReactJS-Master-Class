@@ -6,6 +6,13 @@ const Wrapper = styled.div`
   background-color: black;
 `;
 
+const Loader = styled.div`
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 function Home() {
   const { data, isLoading } = useQuery<IGetMovieResult>(
     ["moives", "nowPlaying"],
@@ -14,7 +21,7 @@ function Home() {
   console.log(data, isLoading);
   return (
     <Wrapper style={{ backgroundColor: "whitesmoke", height: "200vh" }}>
-      Home
+      {isLoading ? <Loader>Loading...</Loader> : null}
     </Wrapper>
   );
 }
