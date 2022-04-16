@@ -36,11 +36,22 @@ const Overview = styled.p`
   font-size: 30px;
 `;
 
-const Slider = styled.div``;
+const Slider = styled.div`
+  position: relative;
+`;
 
-const Row = styled(motion.div)``;
+const Row = styled(motion.div)`
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(6, 1fr);
+  position: absolute;
+  width: 100%;
+`;
 
-const Box = styled(motion.div)``;
+const Box = styled(motion.div)`
+  background-color: white;
+  height: 200px;
+`;
 
 function Home() {
   const { data, isLoading } = useQuery<IGetMovieResult>(
