@@ -93,6 +93,11 @@ const logoVariants = {
   },
 };
 
+const navVariants = {
+  top: { backgroundColor: "rgba(0,0,0,0)" },
+  scroll: { backgroundColor: "rgba(0,0,0,1)" },
+};
+
 function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const homeMatch = useRouteMatch("/");
@@ -117,18 +122,14 @@ function Header() {
   useEffect(() => {
     scrollY.onChange(() => {
       if (scrollY.get() > 80) {
-        navAnimation.start({
-          backgroundColor: "rgba(0,0,0,1)",
-        });
+        navAnimation.start("scroll");
       } else {
-        navAnimation.start({
-          backgroundColor: "rgba(0,0,0,0)",
-        });
+        navAnimation.start("top");
       }
     });
   }, [scrollY]);
   return (
-    <Nav initial={{ backgroundColor: "rgba(0,0,0,0)" }} animate={navAnimation}>
+    <Nav variants={navVariants} initial="top" animate={navAnimation}>
       <Col>
         <Logo
           variants={logoVariants}
