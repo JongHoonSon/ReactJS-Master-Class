@@ -50,8 +50,11 @@ const Row = styled(motion.div)`
   width: 100%;
 `;
 
-const Box = styled(motion.div)`
+const Box = styled(motion.div)<{ bgPhoto: string }>`
   background-color: white;
+  background-image: url(${(props) => props.bgPhoto});
+  background-size: cover;
+  background-position: center center;
   height: 200px;
   color: red;
   font-size: 64px;
@@ -116,7 +119,10 @@ function Home() {
                   .slice(1) // 맨처음 1개를 자름 (Banner로 보여준 영화)
                   .slice(offset * index, offset * index + offset) // 그다음부터 6개씩 자름
                   .map((movie) => (
-                    <Box key={movie.id}>{movie.title}</Box>
+                    <Box
+                      key={movie.id}
+                      bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
+                    ></Box>
                   ))}
               </Row>
             </AnimatePresence>
