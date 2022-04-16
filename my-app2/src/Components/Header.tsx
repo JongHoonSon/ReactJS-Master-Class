@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 
 const Nav = styled.nav`
   display: flex;
@@ -78,6 +78,8 @@ const logoVariants = {
 };
 
 function Header() {
+  const homeMatch = useRouteMatch("/");
+  const tvMatch = useRouteMatch("/tv");
   return (
     <Nav>
       <Col>
@@ -94,14 +96,10 @@ function Header() {
         </Logo>
         <Items>
           <Item>
-            <Link to="/">
-              Home <Circle />
-            </Link>
+            <Link to="/">Home {homeMatch?.isExact && <Circle />}</Link>
           </Item>
           <Item>
-            <Link to="/tv">
-              Tv Shows <Circle />
-            </Link>
+            <Link to="/tv">Tv Shows {tvMatch && <Circle />}</Link>
           </Item>
         </Items>
       </Col>
