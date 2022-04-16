@@ -109,8 +109,8 @@ function Home() {
                 key={index}
               >
                 {data?.results
-                  .slice(1)
-                  .slice(offset * index, offset * index + offset)
+                  .slice(1) // 맨처음 1개를 자름 (Banner로 보여준 영화)
+                  .slice(offset * index, offset * index + offset) // 그다음부터 6개씩 자름
                   .map((movie) => (
                     <Box key={movie.id}>{movie.title}</Box>
                   ))}
