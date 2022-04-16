@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 import { getMovies, IGetMovieResult } from "../api";
@@ -53,11 +54,23 @@ const Box = styled(motion.div)`
   height: 200px;
 `;
 
+const rowVariants = {
+  hidden: {
+    x: 1000,
+  },
+  visible: {
+    x: 0,
+  },
+  exit: { x: -1000 },
+};
+
 function Home() {
   const { data, isLoading } = useQuery<IGetMovieResult>(
     ["moives", "nowPlaying"],
     getMovies
   );
+  const [index, setIndex] = useState(0);
+  const increaseIndex = () => setIndex((prev) => prev + 1);
   console.log(data, isLoading);
   return (
     <Wrapper>
@@ -65,13 +78,22 @@ function Home() {
         <Loader>Loading...</Loader>
       ) : (
         <>
-          <Banner bgPhoto={makeImagePath(data?.results[0].backdrop_path || "")}>
+          <Banner
+            onClick={increaseIndex}
+            bgPhoto={makeImagePath(data?.results[0].backdrop_path || "")}
+          >
             <Title>{data?.results[0].title}</Title>
             <Overview>{data?.results[0].overview}</Overview>
           </Banner>
           <AnimatePresence>
             <Slider>
-              <Row>
+              <Row
+                variants={rowVariants}
+                key={index}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+              >
                 <Box />
                 <Box />
                 <Box />
