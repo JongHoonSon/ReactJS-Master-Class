@@ -39,6 +39,7 @@ const Overview = styled.p`
 
 const Slider = styled.div`
   position: relative;
+  top: -100px;
 `;
 
 const Row = styled(motion.div)`
