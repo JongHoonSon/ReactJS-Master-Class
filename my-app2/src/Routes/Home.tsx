@@ -1,5 +1,10 @@
 import { useQuery } from "react-query";
+import styled from "styled-components";
 import { getMovies, IGetMovieResult } from "../api";
+
+const Wrapper = styled.div`
+  background-color: black;
+`;
 
 function Home() {
   const { data, isLoading } = useQuery<IGetMovieResult>(
@@ -8,7 +13,9 @@ function Home() {
   );
   console.log(data, isLoading);
   return (
-    <div style={{ backgroundColor: "whitesmoke", height: "200vh" }}>Home</div>
+    <Wrapper style={{ backgroundColor: "whitesmoke", height: "200vh" }}>
+      Home
+    </Wrapper>
   );
 }
 
