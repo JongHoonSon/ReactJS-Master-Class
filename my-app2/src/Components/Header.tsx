@@ -70,7 +70,9 @@ const Circle = styled(motion.span)`
   background-color: ${(props) => props.theme.red};
 `;
 
-const Input = styled(motion.input)``;
+const Input = styled(motion.input)`
+  transform-origin: right;
+`;
 
 const logoVariants = {
   normal: { fillOpacity: 1 },
