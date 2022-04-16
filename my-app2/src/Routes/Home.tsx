@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 import { getMovies, IGetMovieResult } from "../api";
@@ -69,16 +69,18 @@ function Home() {
             <Title>{data?.results[0].title}</Title>
             <Overview>{data?.results[0].overview}</Overview>
           </Banner>
-          <Slider>
-            <Row>
-              <Box />
-              <Box />
-              <Box />
-              <Box />
-              <Box />
-              <Box />
-            </Row>
-          </Slider>
+          <AnimatePresence>
+            <Slider>
+              <Row>
+                <Box />
+                <Box />
+                <Box />
+                <Box />
+                <Box />
+                <Box />
+              </Row>
+            </Slider>
+          </AnimatePresence>
         </>
       )}
     </Wrapper>
