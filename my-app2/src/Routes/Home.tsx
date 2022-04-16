@@ -94,12 +94,9 @@ function Home() {
                 animate="visible"
                 exit="exit"
               >
-                <Box />
-                <Box />
-                <Box />
-                <Box />
-                <Box />
-                <Box />
+                {[1, 2, 3, 4, 5, 6].map((i) => (
+                  <Box key={i}>{i}</Box>
+                ))}
               </Row>
             </Slider>
           </AnimatePresence>
