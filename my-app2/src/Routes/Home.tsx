@@ -58,12 +58,12 @@ const Box = styled(motion.div)`
 
 const rowVariants = {
   hidden: {
-    x: window.outerWidth,
+    x: window.outerWidth + 10,
   },
   visible: {
     x: 0,
   },
-  exit: { x: -window.outerWidth },
+  exit: { x: -window.outerWidth - 10 },
 };
 
 function Home() {
@@ -94,7 +94,7 @@ function Home() {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                transition={{ type: "tween", duration: 1 }}
+                transition={{ type: "tween", duration: 5 }}
                 key={index}
               >
                 {[1, 2, 3, 4, 5, 6].map((i) => (
