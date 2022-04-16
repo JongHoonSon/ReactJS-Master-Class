@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { QueryClient, QueryClientProvider } from "react-query";
 import { RecoilRoot } from "recoil";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 import App from "./App";
-import { darkTheme } from "./theme";
+import { createGlobalStyle } from "styled-components";
+import { theme } from "./theme";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -59,9 +59,11 @@ table {
   box-sizing: border-box;
 }
 body {
+  font-weight: 300;
   font-family: 'Source Sans Pro', sans-serif;
-  background-color:${(props) => props.theme.bgColor};
   color:black;
+  line-height: 1.2;
+  
 }
 a {
   text-decoration:none;
@@ -69,16 +71,12 @@ a {
 }
 `;
 
-const queryClient = new QueryClient();
-
 ReactDOM.render(
   <React.StrictMode>
     <RecoilRoot>
-      <ThemeProvider theme={darkTheme}>
-        <QueryClientProvider client={queryClient}>
-          <GlobalStyle />
-          <App />
-        </QueryClientProvider>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <App />
       </ThemeProvider>
     </RecoilRoot>
   </React.StrictMode>,
