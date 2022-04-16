@@ -51,11 +51,19 @@ const Search = styled.span`
   }
 `;
 
+const logoVariants = {
+  normal: { fillOpacity: 1 },
+  active: { fillOpacity: 0 },
+};
+
 function Header() {
   return (
     <Nav>
       <Col>
         <Logo
+          variants={logoVariants}
+          initial="normal"
+          whileHover="active"
           xmlns="http://www.w3.org/2000/svg"
           width="1024"
           height="276.742"
