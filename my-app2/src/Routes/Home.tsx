@@ -75,7 +75,12 @@ function Home() {
     getMovies
   );
   const [index, setIndex] = useState(0);
-  const increaseIndex = () => setIndex((prev) => prev + 1);
+  const [leaving, setLeaving] = useState(false);
+  const increaseIndex = () => {
+    if (leaving) return;
+    setLeaving(true);
+    setIndex((prev) => prev + 1);
+  };
   console.log(data, isLoading);
   return (
     <Wrapper>
