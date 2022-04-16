@@ -19,11 +19,7 @@ function Home() {
     getMovies
   );
   console.log(data, isLoading);
-  return (
-    <Wrapper style={{ height: "200vh" }}>
-      {isLoading ? <Loader>Loading...</Loader> : null}
-    </Wrapper>
-  );
+  return <Wrapper>{isLoading ? <Loader>Loading...</Loader> : null}</Wrapper>;
 }
 
 export default Home;
