@@ -13,13 +13,34 @@ const Loader = styled.div`
   align-items: center;
 `;
 
+const Banner = styled.div`
+  height: 100vh;
+`;
+
+const Title = styled.h2``;
+
+const Overview = styled.p``;
+
 function Home() {
   const { data, isLoading } = useQuery<IGetMovieResult>(
     ["moives", "nowPlaying"],
     getMovies
   );
   console.log(data, isLoading);
-  return <Wrapper>{isLoading ? <Loader>Loading...</Loader> : null}</Wrapper>;
+  return (
+    <Wrapper>
+      {isLoading ? (
+        <Loader>Loading...</Loader>
+      ) : (
+        <>
+          <Banner>
+            <Title></Title>
+            <Overview></Overview>
+          </Banner>
+        </>
+      )}
+    </Wrapper>
+  );
 }
 
 export default Home;
