@@ -20,7 +20,7 @@ function Home() {
   );
   console.log(data, isLoading);
   return (
-    <Wrapper style={{ backgroundColor: "whitesmoke", height: "200vh" }}>
+    <Wrapper style={{ height: "200vh" }}>
       {isLoading ? <Loader>Loading...</Loader> : null}
     </Wrapper>
   );
