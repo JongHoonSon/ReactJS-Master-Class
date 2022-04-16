@@ -53,7 +53,12 @@ const Search = styled.span`
 
 const logoVariants = {
   normal: { fillOpacity: 1 },
-  active: { fillOpacity: 0 },
+  active: {
+    fillOpacity: [0, 1, 0],
+    transition: {
+      repeat: Infinity,
+    },
+  },
 };
 
 function Header() {
