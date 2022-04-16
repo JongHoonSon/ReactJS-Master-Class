@@ -74,7 +74,14 @@ const Circle = styled(motion.span)`
 const Input = styled(motion.input)`
   transform-origin: right;
   position: absolute;
-  left: -180px;
+  right: 0px;
+  padding: 5px 10px;
+  padding-left: 40px;
+  z-index: -1;
+  color: white;
+  font-size: 16px;
+  background-color: transparent;
+  border: 1px solid ${(props) => props.theme.white.lighter};
 `;
 
 const logoVariants = {
