@@ -78,9 +78,10 @@ function Home() {
   const [leaving, setLeaving] = useState(false);
   const increaseIndex = () => {
     if (leaving) return;
-    setLeaving(true);
+    toggleLeaving();
     setIndex((prev) => prev + 1);
   };
+  const toggleLeaving = () => setLeaving((prev) => !prev);
   console.log(data, isLoading);
   return (
     <Wrapper>
@@ -96,7 +97,7 @@ function Home() {
             <Overview>{data?.results[0].overview}</Overview>
           </Banner>
           <Slider>
-            <AnimatePresence>
+            <AnimatePresence onExitComplete={toggleLeaving}>
               <Row
                 variants={rowVariants}
                 initial="hidden"
