@@ -118,17 +118,17 @@ function Header() {
     scrollY.onChange(() => {
       if (scrollY.get() > 80) {
         navAnimation.start({
-          backgroundColor: "rgba(0,0,0,0)",
+          backgroundColor: "rgba(0,0,0,1)",
         });
       } else {
         navAnimation.start({
-          backgroundColor: "rgba(0,0,0,1)",
+          backgroundColor: "rgba(0,0,0,0)",
         });
       }
     });
   }, [scrollY]);
   return (
-    <Nav initial={{ backgroundColor: "rgba(0,0,0,1)" }} animate={navAnimation}>
+    <Nav initial={{ backgroundColor: "rgba(0,0,0,0)" }} animate={navAnimation}>
       <Col>
         <Logo
           variants={logoVariants}
