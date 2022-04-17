@@ -148,6 +148,7 @@ function Home() {
     }
   };
   const toggleLeaving = () => setLeaving((prev) => !prev);
+  const onOverlayClick = () => history.goBack();
   const onBoxClicked = (movieId: number) => {
     history.push(`/movies/${movieId}`);
   };
@@ -200,7 +201,7 @@ function Home() {
           <AnimatePresence>
             {bigMovieMatch ? (
               <>
-                <Overlay></Overlay>
+                <Overlay onClick={onOverlayClick}></Overlay>
                 <motion.div
                   layoutId={bigMovieMatch.params.movieId}
                   style={{
