@@ -123,7 +123,7 @@ const offset = 6;
 
 function Home() {
   const history = useHistory();
-  const bigMovieMath = useRouteMatch("/movies/:movieId");
+  const bigMovieMatch = useRouteMatch("/movies/:movieId");
   const { data, isLoading } = useQuery<IGetMovieResult>(
     ["moives", "nowPlaying"],
     getMovies
@@ -188,6 +188,22 @@ function Home() {
               </Row>
             </AnimatePresence>
           </Slider>
+          <AnimatePresence>
+            {bigMovieMatch ? (
+              <motion.div
+                style={{
+                  position: "absolute",
+                  width: "40vw",
+                  height: "80vh",
+                  backgroundColor: "red",
+                  top: 50,
+                  left: 0,
+                  right: 0,
+                  margin: "0 auto",
+                }}
+              ></motion.div>
+            ) : null}
+          </AnimatePresence>
         </>
       )}
     </Wrapper>
