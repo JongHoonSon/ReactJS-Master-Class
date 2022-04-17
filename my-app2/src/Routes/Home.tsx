@@ -123,7 +123,7 @@ const offset = 6;
 
 function Home() {
   const history = useHistory();
-  const bigMovieMatch = useRouteMatch("/movies/:movieId");
+  const bigMovieMatch = useRouteMatch<{ movieId: string }>("/movies/:movieId");
   const { data, isLoading } = useQuery<IGetMovieResult>(
     ["moives", "nowPlaying"],
     getMovies
@@ -172,6 +172,7 @@ function Home() {
                   .slice(offset * index, offset * index + offset) // 그다음부터 6개씩 자름
                   .map((movie) => (
                     <Box
+                      layoutId={movie.id + ""}
                       key={movie.id}
                       bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
                       onClick={() => onBoxClicked(movie.id)}
@@ -191,6 +192,7 @@ function Home() {
           <AnimatePresence>
             {bigMovieMatch ? (
               <motion.div
+                layoutId={bigMovieMatch.params.movieId}
                 style={{
                   position: "absolute",
                   width: "40vw",
