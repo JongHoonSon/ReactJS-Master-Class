@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { motion, useAnimation, useViewportScroll } from "framer-motion";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useHistory, useRouteMatch } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -133,9 +133,11 @@ function Header() {
       }
     });
   }, [scrollY]);
+  const history = useHistory();
   const { register, handleSubmit } = useForm<IForm>();
   const onValid = (data: IForm) => {
     console.log(data);
+    history.push(`/search?keyword=${data.keyword}`);
   };
   return (
     <Nav variants={navVariants} initial="top" animate={navAnimation}>
