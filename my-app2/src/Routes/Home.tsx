@@ -97,7 +97,12 @@ const BigMovie = styled(motion.div)`
   left: 0;
   right: 0;
   margin: 0 auto;
+  background-color: ${(props) => props.theme.black.lighter};
 `;
+
+const BigCover = styled(motion.img)``;
+
+const BigTitle = styled(motion.h3)``;
 
 const rowVariants = {
   hidden: {
@@ -228,7 +233,10 @@ function Home() {
                 >
                   {clickedMovie && (
                     <>
-                      <h2>{clickedMovie.title}</h2>
+                      <BigCover
+                        src={makeImagePath(clickedMovie.backdrop_path, "w500")}
+                      />
+                      <BigTitle>{clickedMovie.title}</BigTitle>
                     </>
                   )}
                 </BigMovie>
