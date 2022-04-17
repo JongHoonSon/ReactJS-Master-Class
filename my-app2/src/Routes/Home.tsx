@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useViewportScroll } from "framer-motion";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import { useHistory, useRouteMatch } from "react-router-dom";
@@ -133,6 +133,7 @@ const offset = 6;
 function Home() {
   const history = useHistory();
   const bigMovieMatch = useRouteMatch<{ movieId: string }>("/movies/:movieId");
+  const { scrollY } = useViewportScroll();
   const { data, isLoading } = useQuery<IGetMovieResult>(
     ["moives", "nowPlaying"],
     getMovies
@@ -214,7 +215,7 @@ function Home() {
                     width: "40vw",
                     height: "80vh",
                     backgroundColor: "red",
-                    top: 50,
+                    top: scrollY.get() + 100,
                     left: 0,
                     right: 0,
                     margin: "0 auto",
