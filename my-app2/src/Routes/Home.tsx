@@ -87,6 +87,7 @@ const BoxVariants = {
     y: -50,
     transition: {
       delay: 0.5,
+      duration: 0.2,
       type: "tween",
     },
   },
