@@ -66,6 +66,11 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
   }
 `;
 
+const Info = styled(motion.div)`
+  padding: 20px;
+  background-color: ${(props) => props.theme.black.lighter};
+`;
+
 const rowVariants = {
   hidden: {
     x: window.innerWidth,
@@ -147,7 +152,9 @@ function Home() {
                       initial="normal"
                       transition={{ type: "tween" }}
                       whileHover="hover"
-                    ></Box>
+                    >
+                      <Info></Info>
+                    </Box>
                   ))}
               </Row>
             </AnimatePresence>
