@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { useHistory } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
 import { getMovies, IGetMovieResult } from "../api";
 import { makeImagePath } from "../utils";
@@ -123,6 +123,7 @@ const offset = 6;
 
 function Home() {
   const history = useHistory();
+  const bigMovieMath = useRouteMatch("/movies/:movieId");
   const { data, isLoading } = useQuery<IGetMovieResult>(
     ["moives", "nowPlaying"],
     getMovies
