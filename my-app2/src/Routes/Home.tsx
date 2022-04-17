@@ -136,6 +136,7 @@ function Home() {
     }
   };
   const toggleLeaving = () => setLeaving((prev) => !prev);
+  const onBoxClicked = (movieId: number) => {};
   console.log(data, isLoading);
   return (
     <Wrapper>
@@ -167,6 +168,7 @@ function Home() {
                     <Box
                       key={movie.id}
                       bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
+                      onClick={() => onBoxClicked(movie.id)}
                       variants={BoxVariants}
                       initial="normal"
                       transition={{ type: "tween" }}
