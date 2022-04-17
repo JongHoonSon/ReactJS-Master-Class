@@ -58,6 +58,12 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
   height: 200px;
   color: red;
   font-size: 64px;
+  &:first-child {
+    transform-origin: center left;
+  }
+  &:last-child {
+    transform-origin: center right;
+  }
 `;
 
 const rowVariants = {
