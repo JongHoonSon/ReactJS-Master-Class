@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { useQuery } from "react-query";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { getMovies, IGetMovieResult } from "../api";
 import { makeImagePath } from "../utils";
@@ -120,6 +121,7 @@ const infoVariants = {
 const offset = 6;
 
 function Home() {
+  const history = useHistory();
   const { data, isLoading } = useQuery<IGetMovieResult>(
     ["moives", "nowPlaying"],
     getMovies
@@ -136,7 +138,9 @@ function Home() {
     }
   };
   const toggleLeaving = () => setLeaving((prev) => !prev);
-  const onBoxClicked = (movieId: number) => {};
+  const onBoxClicked = (movieId: number) => {
+    history.push(`/movies/${movieId}`);
+  };
   console.log(data, isLoading);
   return (
     <Wrapper>
