@@ -69,6 +69,7 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
 const Info = styled(motion.div)`
   padding: 20px;
   background-color: ${(props) => props.theme.black.lighter};
+  opacity: 0;
 `;
 
 const rowVariants = {
@@ -95,6 +96,12 @@ const BoxVariants = {
       duration: 0.2,
       type: "tween",
     },
+  },
+};
+
+const infoVariants = {
+  hover: {
+    opacity: 1,
   },
 };
 
@@ -153,7 +160,7 @@ function Home() {
                       transition={{ type: "tween" }}
                       whileHover="hover"
                     >
-                      <Info></Info>
+                      <Info variants={infoVariants}></Info>
                     </Box>
                   ))}
               </Row>
