@@ -58,6 +58,7 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
   height: 200px;
   color: red;
   font-size: 64px;
+  position: relative;
   &:first-child {
     transform-origin: center left;
   }
@@ -67,9 +68,16 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
 `;
 
 const Info = styled(motion.div)`
-  padding: 20px;
+  padding: 10px;
   background-color: ${(props) => props.theme.black.lighter};
-  opacity: 0;
+  opacity: 1;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  h4 {
+    text-align: center;
+    font-size: 18px;
+  }
 `;
 
 const rowVariants = {
@@ -160,7 +168,9 @@ function Home() {
                       transition={{ type: "tween" }}
                       whileHover="hover"
                     >
-                      <Info variants={infoVariants}></Info>
+                      <Info variants={infoVariants}>
+                        <h4>{movie.title}</h4>
+                      </Info>
                     </Box>
                   ))}
               </Row>
