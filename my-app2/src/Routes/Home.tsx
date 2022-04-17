@@ -163,7 +163,10 @@ function Home() {
   const onBoxClicked = (movieId: number) => {
     history.push(`/movies/${movieId}`);
   };
-  console.log(data, isLoading);
+  const clickedMovie =
+    bigMovieMatch?.params.movieId &&
+    data?.results.find((movie) => movie.id === +bigMovieMatch.params.movieId);
+  console.log(clickedMovie);
   return (
     <Wrapper>
       {isLoading ? (
@@ -222,7 +225,13 @@ function Home() {
                   style={{
                     top: scrollY.get() + 100,
                   }}
-                ></BigMovie>
+                >
+                  {clickedMovie && (
+                    <>
+                      <h2>{clickedMovie.title}</h2>
+                    </>
+                  )}
+                </BigMovie>
               </>
             ) : null}
           </AnimatePresence>
