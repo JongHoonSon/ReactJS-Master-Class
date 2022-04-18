@@ -11,7 +11,6 @@ import {
   IGetTvResult,
 } from "../api";
 import { makeImagePath } from "../utils";
-import MovieDetail from "./MovieDetail";
 
 const Wrapper = styled.div`
   background: black;
@@ -127,7 +126,7 @@ const Overlay = styled(motion.div)`
   opacity: 0;
 `;
 
-const BigMovie = styled(motion.div)`
+const Bigtv = styled(motion.div)`
   position: absolute;
   width: 40vw;
   height: 80vh;
@@ -203,25 +202,22 @@ const categories = {
 
 function Tv() {
   const history = useHistory();
-  const bigMovieMatch = useRouteMatch<{ movieId: string }>("/movies/:movieId");
+  const bigTvMatch = useRouteMatch<{ tvId: string }>("/tvs/:tvId");
   const { scrollY } = useViewportScroll();
-  const { data: airingTodayMovies, isLoading: airingTodayMoviesLoading } =
-    useQuery<IGetTvResult>(
-      ["movies", categories.airingToday],
-      getAiringTodayTvs
-    );
-  const { data: onTheAirMovies, isLoading: onTheAirMoviesLoading } =
-    useQuery<IGetTvResult>(["movies", categories.onTheAir], getOnTheAirTvs);
-  const { data: popularMovies, isLoading: popularMoviesLoading } =
-    useQuery<IGetTvResult>(["movies", categories.popular], getPopularTvs);
-  const { data: topRatedMovies, isLoading: topRatedMoviesLoading } =
-    useQuery<IGetTvResult>(["movies", categories.topRated], getTopRatedTvs);
-  const [clickedRowMovies, setClickedRowMovies] = useState<IGetTvResult>();
+  const { data: airingTodayTvs, isLoading: airingTodayTvsLoading } =
+    useQuery<IGetTvResult>(["tvs", categories.airingToday], getAiringTodayTvs);
+  const { data: onTheAirTvs, isLoading: onTheAirTvsLoading } =
+    useQuery<IGetTvResult>(["tvs", categories.onTheAir], getOnTheAirTvs);
+  const { data: popularTvs, isLoading: popularTvsLoading } =
+    useQuery<IGetTvResult>(["tvs", categories.popular], getPopularTvs);
+  const { data: topRatedTvs, isLoading: topRatedTvsLoading } =
+    useQuery<IGetTvResult>(["tvs", categories.topRated], getTopRatedTvs);
+  const [clickedRowTvs, setClickedRowTvs] = useState<IGetTvResult>();
   const [clickedRowName, setClickedRowName] = useState<string>();
   const toggleLeaving = () => setLeaving((prev) => !prev);
-  const [airingTodayIndex, setairingTodayIndex] = useState(0);
-  const [onTheAirIndex, setonTheAirIndex] = useState(0);
-  const [popularIndex, setpopularIndex] = useState(0);
+  const [airingTodayIndex, setAiringTodayIndex] = useState(0);
+  const [onTheAirIndex, setOnTheAirIndex] = useState(0);
+  const [popularIndex, setPopularIndex] = useState(0);
   const [topRatedIndex, settopRatedIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const [isBack, setIsBack] = useState(false);
@@ -230,15 +226,15 @@ function Tv() {
       if (leaving) return;
       toggleLeaving();
       setIsBack(true);
-      let totalMovies = data.results.length;
-      let maxIndex = Math.ceil(totalMovies / offset) - 1; // 총 넘길 수 있는 index 수, 0번째 index부터 시작하므로 -1 해줌
+      let totalTvs = data.results.length;
+      let maxIndex = Math.ceil(totalTvs / offset) - 1; // 총 넘길 수 있는 index 수, 0번째 index부터 시작하므로 -1 해줌
       if (category === categories.airingToday) {
-        totalMovies = totalMovies - 1; // Banner에 보여준 영화를 뺸 나머지 영화의 수
-        setairingTodayIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
+        totalTvs = totalTvs - 1; // Banner에 보여준 영화를 뺸 나머지 영화의 수
+        setAiringTodayIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
       } else if (category === categories.onTheAir) {
-        setonTheAirIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
+        setOnTheAirIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
       } else if (category === categories.popular) {
-        setpopularIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
+        setPopularIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
       } else if (category === categories.topRated) {
         settopRatedIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
       }
@@ -249,61 +245,59 @@ function Tv() {
       if (leaving) return;
       setIsBack(false);
       toggleLeaving();
-      let totalMovies = data.results.length;
-      let maxIndex = Math.ceil(totalMovies / offset) - 1; // 총 넘길 수 있는 index 수, 0번째 index부터 시작하므로 -1 해줌
+      let totalTvs = data.results.length;
+      let maxIndex = Math.ceil(totalTvs / offset) - 1; // 총 넘길 수 있는 index 수, 0번째 index부터 시작하므로 -1 해줌
       if (category === categories.airingToday) {
-        totalMovies = totalMovies - 1; // Banner에 보여준 영화를 뺸 나머지 영화의 수
-        setairingTodayIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+        totalTvs = totalTvs - 1; // Banner에 보여준 영화를 뺸 나머지 영화의 수
+        setAiringTodayIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
       } else if (category === categories.onTheAir) {
-        setonTheAirIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+        setOnTheAirIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
       } else if (category === categories.popular) {
-        setpopularIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+        setPopularIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
       } else if (category === categories.topRated) {
         settopRatedIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
       }
     }
   };
   const onOverlayClick = () => history.goBack();
-  const onBoxClicked = (category: string, movieId: number) => {
-    history.push(`/movies/${movieId}`);
+  const onBoxClicked = (category: string, tvId: number) => {
+    history.push(`/Tvs/${tvId}`);
     setClickedRowName(category);
     if (category === categories.airingToday) {
-      setClickedRowMovies(airingTodayMovies);
+      setClickedRowTvs(airingTodayTvs);
     } else if (category === categories.onTheAir) {
-      setClickedRowMovies(onTheAirMovies);
+      setClickedRowTvs(onTheAirTvs);
     } else if (category === categories.popular) {
-      setClickedRowMovies(popularMovies);
+      setClickedRowTvs(popularTvs);
     } else if (category === categories.topRated) {
-      setClickedRowMovies(topRatedMovies);
+      setClickedRowTvs(topRatedTvs);
     }
   };
-  let clickedMovie =
-    bigMovieMatch?.params.movieId &&
-    clickedRowMovies?.results.find(
-      (movie) => movie.id === +bigMovieMatch.params.movieId
-    );
+  let clickedTv =
+    bigTvMatch?.params.tvId &&
+    clickedRowTvs?.results.find((tv) => tv.id === +bigTvMatch.params.tvId);
   return (
     <Wrapper>
-      {airingTodayMoviesLoading ||
-      onTheAirMoviesLoading ||
-      popularMoviesLoading ||
-      topRatedMoviesLoading ? (
+      {airingTodayTvsLoading ||
+      onTheAirTvsLoading ||
+      popularTvsLoading ||
+      topRatedTvsLoading ? (
         <Loader>Loading...</Loader>
       ) : (
         <>
           <Banner
             bgPhoto={makeImagePath(
-              airingTodayMovies?.results[0].backdrop_path || ""
+              airingTodayTvs?.results[0].backdrop_path || ""
             )}
           >
-            <Title>{airingTodayMovies?.results[0].name}</Title>
-            <Overview>{airingTodayMovies?.results[0].overview}</Overview>
+            <Title>{airingTodayTvs?.results[0].name}</Title>
+            <Overview>{airingTodayTvs?.results[0].overview}</Overview>
           </Banner>
           <Slider>
-            <SliderTitle>Now Playing Movies</SliderTitle>
+            <SliderTitle>Now Playing TV shows</SliderTitle>
             <Button
               onClick={() =>
-                decreaseIndex(categories.airingToday, airingTodayMovies)
+                decreaseIndex(categories.airingToday, airingTodayTvs)
               }
             >
               <span>{`<`}</span>
@@ -322,19 +316,19 @@ function Tv() {
                 custom={isBack}
                 key={airingTodayIndex}
               >
-                {airingTodayMovies?.results
+                {airingTodayTvs?.results
                   .slice(1) // 맨처음 1개를 자름 (Banner로 보여준 영화)
                   .slice(
                     offset * airingTodayIndex,
                     offset * airingTodayIndex + offset
                   ) // 그다음부터 6개씩 자름
-                  .map((movie) => (
+                  .map((tv) => (
                     <Box
-                      layoutId={movie.id + categories.airingToday}
-                      key={movie.id + categories.airingToday}
-                      bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
+                      layoutId={tv.id + categories.airingToday}
+                      key={tv.id + categories.airingToday}
+                      bgPhoto={makeImagePath(tv.backdrop_path, "w500")}
                       onClick={() =>
-                        onBoxClicked(categories.airingToday, movie.id)
+                        onBoxClicked(categories.airingToday, tv.id)
                       }
                       variants={BoxVariants}
                       initial="normal"
@@ -342,7 +336,7 @@ function Tv() {
                       whileHover="hover"
                     >
                       <Info variants={infoVariants}>
-                        <h4>{movie.name}</h4>
+                        <h4>{tv.name}</h4>
                       </Info>
                     </Box>
                   ))}
@@ -350,16 +344,16 @@ function Tv() {
             </AnimatePresence>
             <Button
               onClick={() =>
-                increaseIndex(categories.airingToday, airingTodayMovies)
+                increaseIndex(categories.airingToday, airingTodayTvs)
               }
             >
               <span>{`>`}</span>
             </Button>
           </Slider>
           <Slider>
-            <SliderTitle>onTheAir Movies</SliderTitle>
+            <SliderTitle>On The Air Tv Shows</SliderTitle>
             <Button
-              onClick={() => decreaseIndex(categories.onTheAir, onTheAirMovies)}
+              onClick={() => decreaseIndex(categories.onTheAir, onTheAirTvs)}
             >
               <span>{`<`}</span>
             </Button>
@@ -377,42 +371,40 @@ function Tv() {
                 custom={isBack}
                 key={onTheAirIndex}
               >
-                {onTheAirMovies?.results
+                {onTheAirTvs?.results
                   .slice(1) // 맨처음 1개를 자름 (Banner로 보여준 영화)
                   .slice(
                     offset * onTheAirIndex,
                     offset * onTheAirIndex + offset
                   ) // 그다음부터 6개씩 자름
-                  .map((movie) => (
+                  .map((tv) => (
                     <Box
-                      layoutId={movie.id + categories.onTheAir}
-                      key={movie.id + categories.onTheAir}
-                      bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
-                      onClick={() =>
-                        onBoxClicked(categories.onTheAir, movie.id)
-                      }
+                      layoutId={tv.id + categories.onTheAir}
+                      key={tv.id + categories.onTheAir}
+                      bgPhoto={makeImagePath(tv.backdrop_path, "w500")}
+                      onClick={() => onBoxClicked(categories.onTheAir, tv.id)}
                       variants={BoxVariants}
                       initial="normal"
                       transition={{ type: "tween" }}
                       whileHover="hover"
                     >
                       <Info variants={infoVariants}>
-                        <h4>{movie.name}</h4>
+                        <h4>{tv.name}</h4>
                       </Info>
                     </Box>
                   ))}
               </Row>
             </AnimatePresence>
             <Button
-              onClick={() => increaseIndex(categories.onTheAir, onTheAirMovies)}
+              onClick={() => increaseIndex(categories.onTheAir, onTheAirTvs)}
             >
               <span>{`>`}</span>
             </Button>
           </Slider>
           <Slider>
-            <SliderTitle>Top Rated Movies</SliderTitle>
+            <SliderTitle>Popular TV Shows</SliderTitle>
             <Button
-              onClick={() => decreaseIndex(categories.popular, popularMovies)}
+              onClick={() => decreaseIndex(categories.popular, popularTvs)}
             >
               <span>{`<`}</span>
             </Button>
@@ -430,37 +422,37 @@ function Tv() {
                 custom={isBack}
                 key={popularIndex}
               >
-                {popularMovies?.results
+                {popularTvs?.results
                   .slice(1) // 맨처음 1개를 자름 (Banner로 보여준 영화)
                   .slice(offset * popularIndex, offset * popularIndex + offset) // 그다음부터 6개씩 자름
-                  .map((movie) => (
+                  .map((tv) => (
                     <Box
-                      layoutId={movie.id + categories.popular}
-                      key={movie.id + categories.popular}
-                      bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
-                      onClick={() => onBoxClicked(categories.popular, movie.id)}
+                      layoutId={tv.id + categories.popular}
+                      key={tv.id + categories.popular}
+                      bgPhoto={makeImagePath(tv.backdrop_path, "w500")}
+                      onClick={() => onBoxClicked(categories.popular, tv.id)}
                       variants={BoxVariants}
                       initial="normal"
                       transition={{ type: "tween" }}
                       whileHover="hover"
                     >
                       <Info variants={infoVariants}>
-                        <h4>{movie.name}</h4>
+                        <h4>{tv.name}</h4>
                       </Info>
                     </Box>
                   ))}
               </Row>
             </AnimatePresence>
             <Button
-              onClick={() => increaseIndex(categories.popular, popularMovies)}
+              onClick={() => increaseIndex(categories.popular, popularTvs)}
             >
               <span>{`>`}</span>
             </Button>
           </Slider>
           <Slider>
-            <SliderTitle>topRated Movies</SliderTitle>
+            <SliderTitle>Top Rated TV Shows</SliderTitle>
             <Button
-              onClick={() => decreaseIndex(categories.topRated, topRatedMovies)}
+              onClick={() => decreaseIndex(categories.topRated, topRatedTvs)}
             >
               <span>{`<`}</span>
             </Button>
@@ -478,66 +470,64 @@ function Tv() {
                 custom={isBack}
                 key={topRatedIndex}
               >
-                {topRatedMovies?.results
+                {topRatedTvs?.results
                   .slice(1) // 맨처음 1개를 자름 (Banner로 보여준 영화)
                   .slice(
                     offset * topRatedIndex,
                     offset * topRatedIndex + offset
                   ) // 그다음부터 6개씩 자름
-                  .map((movie) => (
+                  .map((tv) => (
                     <Box
-                      layoutId={movie.id + categories.topRated}
-                      key={movie.id + categories.topRated}
-                      bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
-                      onClick={() =>
-                        onBoxClicked(categories.topRated, movie.id)
-                      }
+                      layoutId={tv.id + categories.topRated}
+                      key={tv.id + categories.topRated}
+                      bgPhoto={makeImagePath(tv.backdrop_path, "w500")}
+                      onClick={() => onBoxClicked(categories.topRated, tv.id)}
                       variants={BoxVariants}
                       initial="normal"
                       transition={{ type: "tween" }}
                       whileHover="hover"
                     >
                       <Info variants={infoVariants}>
-                        <h4>{movie.name}</h4>
+                        <h4>{tv.name}</h4>
                       </Info>
                     </Box>
                   ))}
               </Row>
             </AnimatePresence>
             <Button
-              onClick={() => increaseIndex(categories.topRated, topRatedMovies)}
+              onClick={() => increaseIndex(categories.topRated, topRatedTvs)}
             >
               <span>{`>`}</span>
             </Button>
           </Slider>
           <AnimatePresence>
-            {bigMovieMatch ? (
+            {bigTvMatch ? (
               <>
                 <Overlay
                   onClick={onOverlayClick}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 ></Overlay>
-                <BigMovie
-                  layoutId={bigMovieMatch.params.movieId + clickedRowName}
+                <Bigtv
+                  layoutId={bigTvMatch.params.tvId + clickedRowName}
                   style={{
                     top: scrollY.get() + 100,
                   }}
                 >
-                  {clickedMovie && (
+                  {clickedTv && (
                     <>
                       <BigCover
                         style={{
                           backgroundImage: `linear-gradient(to top, black, transparent), url(${makeImagePath(
-                            clickedMovie.backdrop_path
+                            clickedTv.backdrop_path
                           )})`,
                         }}
                       />
-                      <BigTitle>{clickedMovie.name}</BigTitle>
-                      <MovieDetail />
+                      <BigTitle>{clickedTv.name}</BigTitle>
+                      {/* <tvDetail /> */}
                     </>
                   )}
-                </BigMovie>
+                </Bigtv>
               </>
             ) : null}
           </AnimatePresence>
