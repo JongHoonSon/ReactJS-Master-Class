@@ -136,15 +136,15 @@ const BigOverview = styled(motion.p)`
 `;
 
 const rowVariants = {
-  hidden: {
-    x: window.innerWidth,
-  },
+  hidden: (isBack: boolean) => ({
+    x: isBack ? -window.innerWidth : window.innerWidth,
+  }),
   visible: {
     x: 0,
   },
-  exit: {
-    x: -window.innerWidth,
-  },
+  exit: (isBack: boolean) => ({
+    x: isBack ? window.innerWidth : -window.innerWidth,
+  }),
 };
 
 const BoxVariants = {
@@ -187,10 +187,12 @@ function Home() {
   const nowMovies = data;
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
+  const [isBack, setIsBack] = useState(false);
   const decreaseIndex = (data: any) => {
     if (data) {
       if (leaving) return;
       toggleLeaving();
+      setIsBack(true);
       const totalMovies = data.results.length - 1; // Banner에 보여준 영화를 뺸 나머지 영화의 수
       const maxIndex = Math.ceil(totalMovies / offset) - 1; // 총 넘길 수 있는 index 수, 0번째 index부터 시작하므로 -1 해줌
       setIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
@@ -199,6 +201,7 @@ function Home() {
   const increaseIndex = (data: any) => {
     if (data) {
       if (leaving) return;
+      setIsBack(false);
       toggleLeaving();
       const totalMovies = data.results.length - 1; // Banner에 보여준 영화를 뺸 나머지 영화의 수
       const maxIndex = Math.ceil(totalMovies / offset) - 1; // 총 넘길 수 있는 index 수, 0번째 index부터 시작하므로 -1 해줌
@@ -225,13 +228,18 @@ function Home() {
           </Banner>
           <Slider>
             <Button onClick={() => decreaseIndex(nowMovies)}></Button>
-            <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
+            <AnimatePresence
+              initial={false}
+              onExitComplete={toggleLeaving}
+              custom={isBack}
+            >
               <Row
                 variants={rowVariants}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
                 transition={{ type: "tween", duration: 1 }}
+                custom={isBack}
                 key={index}
               >
                 {data?.results
