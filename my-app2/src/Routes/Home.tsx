@@ -184,14 +184,24 @@ const infoVariants = {
 
 const offset = 6;
 
+const categories = {
+  nowPlaying: "nowPlaying",
+  latest: "latest",
+  topRated: "topRated",
+  upcoming: "upcoming",
+};
+
 function Home() {
   const history = useHistory();
   const bigMovieMatch = useRouteMatch<{ movieId: string }>("/movies/:movieId");
   const { scrollY } = useViewportScroll();
   const { data: nowPlayingMovies, isLoading: nowPlayingMoviesLoading } =
-    useQuery<IGetMovieResult>(["movies", "nowPlaying"], getNowPlayingMovies);
+    useQuery<IGetMovieResult>(
+      ["movies", categories.nowPlaying],
+      getNowPlayingMovies
+    );
   const { data: latestMovies, isLoading: latestMoviesLoading } =
-    useQuery<IGetMovieResult>(["movies", "latest"], getPopularMovies);
+    useQuery<IGetMovieResult>(["movies", categories.latest], getPopularMovies);
   const [clickedRowMovies, setClickedRowMovies] = useState<IGetMovieResult>();
   const [clickedRowName, setClickedRowName] = useState<string>();
   const toggleLeaving = () => setLeaving((prev) => !prev);
@@ -243,9 +253,9 @@ function Home() {
   const onBoxClicked = (category: string, movieId: number) => {
     history.push(`/movies/${movieId}`);
     setClickedRowName(category);
-    if (category === "nowPlaying") {
+    if (category === categories.nowPlaying) {
       setClickedRowMovies(nowPlayingMovies);
-    } else if (category === "latest") {
+    } else if (category === categories.latest) {
       setClickedRowMovies(latestMovies);
     }
   };
@@ -295,10 +305,12 @@ function Home() {
                   ) // 그다음부터 6개씩 자름
                   .map((movie) => (
                     <Box
-                      layoutId={movie.id + "nowPlaying"}
-                      key={movie.id + "nowPlaying"}
+                      layoutId={movie.id + categories.nowPlaying}
+                      key={movie.id + categories.nowPlaying}
                       bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
-                      onClick={() => onBoxClicked("nowPlaying", movie.id)}
+                      onClick={() =>
+                        onBoxClicked(categories.nowPlaying, movie.id)
+                      }
                       variants={BoxVariants}
                       initial="normal"
                       transition={{ type: "tween" }}
@@ -337,10 +349,10 @@ function Home() {
                   .slice(offset * latestIndex, offset * latestIndex + offset) // 그다음부터 6개씩 자름
                   .map((movie) => (
                     <Box
-                      layoutId={movie.id + "latest"}
-                      key={movie.id + "latest"}
+                      layoutId={movie.id + categories.latest}
+                      key={movie.id + categories.latest}
                       bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
-                      onClick={() => onBoxClicked("latest", movie.id)}
+                      onClick={() => onBoxClicked(categories.latest, movie.id)}
                       variants={BoxVariants}
                       initial="normal"
                       transition={{ type: "tween" }}
