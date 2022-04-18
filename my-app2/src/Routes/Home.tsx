@@ -10,8 +10,8 @@ import {
   getUpcomingMovies,
   IGetMovieResult,
 } from "../api";
-import Detail from "./Detail";
 import { makeImagePath } from "../utils";
+import MovieDetail from "./MovieDetail";
 
 const Wrapper = styled.div`
   background: black;
@@ -540,7 +540,7 @@ function Home() {
                         }}
                       />
                       <BigTitle>{clickedMovie.title}</BigTitle>
-                      <Detail />
+                      <MovieDetail />
                     </>
                   )}
                 </BigMovie>

@@ -62,7 +62,7 @@ const Genres = styled.ul`
   bottom: 10px;
 `;
 
-function Detail() {
+function MovieDetail() {
   const movieMatch = useRouteMatch<{ movieId: string }>(`/movies/:movieId`);
   const { data: info, isLoading } = useQuery<IGetMovieDetail>(
     "MovieDetail",
@@ -106,4 +106,4 @@ function Detail() {
   );
 }
 
-export default Detail;
+export default MovieDetail;
