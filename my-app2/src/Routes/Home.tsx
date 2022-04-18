@@ -46,7 +46,7 @@ const Overview = styled.p`
 
 const Slider = styled.div`
   position: relative;
-  margin: 50px 0px;
+  margin: 50px 0px 70px 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -57,8 +57,14 @@ const SliderTitle = styled.h2`
   width: 200px;
   height: 50px;
   position: absolute;
-  background-color: blue;
+  background-color: transparent;
   top: -50px;
+  left: 40px;
+  text-transform: uppercase;
+  font-weight: 500;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 `;
 
 const Button = styled.div`
@@ -88,7 +94,6 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
   background-size: cover;
   background-position: center center;
   height: 200px;
-  color: red;
   font-size: 64px;
   cursor: pointer;
   &:first-child {
@@ -309,7 +314,7 @@ function Home() {
             <Overview>{nowPlayingMovies?.results[0].overview}</Overview>
           </Banner>
           <Slider>
-            <SliderTitle>nowPlayingMovies</SliderTitle>
+            <SliderTitle>Now Playing Movies</SliderTitle>
             <Button
               onClick={() =>
                 decreaseIndex(categories.nowPlaying, nowPlayingMovies)
@@ -366,7 +371,7 @@ function Home() {
             </Button>
           </Slider>
           <Slider>
-            <SliderTitle>latestMovies</SliderTitle>
+            <SliderTitle>Latest Movies</SliderTitle>
             <Button
               onClick={() => decreaseIndex(categories.latest, latestMovies)}
             >
@@ -467,7 +472,7 @@ function Home() {
             </Button>
           </Slider>
           <Slider>
-            <SliderTitle>upcomingMovies</SliderTitle>
+            <SliderTitle>Upcoming Movies</SliderTitle>
             <Button
               onClick={() => decreaseIndex(categories.upcoming, upcomingMovies)}
             >
