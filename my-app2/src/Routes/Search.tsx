@@ -3,8 +3,18 @@ import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { getMultiSearch, IGetMultiSearchResult } from "../api";
 
-const Movies = styled.div``;
+const Wrapper = styled.div`
+  margin-top: 100px;
+  padding: 100px;
+`;
+const Movies = styled.div`
+  margin-bottom: 200px;
+`;
 const Tvs = styled.div``;
+const Title = styled.div`
+  width: 300px;
+  height: 50px;
+`;
 
 function Search() {
   const location = useLocation();
@@ -21,16 +31,22 @@ function Search() {
     result.title ? movieList.push(result) : tvList.push(result)
   );
   return (
-    <div>
+    <Wrapper>
       {isLoading ? (
         <span>isLoading...</span>
       ) : (
         <div>
-          <Movies></Movies>
-          <Tvs></Tvs>
+          <Movies>
+            <Title>Search from Movies</Title>
+            <hr />
+          </Movies>
+          <Tvs>
+            <Title>Search from TV Shows</Title>
+            <hr />
+          </Tvs>
         </div>
       )}
-    </div>
+    </Wrapper>
   );
 }
 
