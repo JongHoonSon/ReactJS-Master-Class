@@ -38,7 +38,30 @@ const Movie = styled(motion.div)<{ bgPhoto: string }>`
   cursor: pointer;
 `;
 
-const TvRow = styled.div``;
+const TvRow = styled.div`
+  margin-bottom: 200px;
+`;
+
+const Tvs = styled.ul`
+  display: grid;
+  width: 1600px;
+  grid-template-columns: repeat(8, 1fr);
+`;
+
+const Tv = styled(motion.div)<{ bgPhoto: string }>`
+  background-color: white;
+  background-image: url(${(props) => props.bgPhoto});
+  background-size: cover;
+  padding: 20px;
+  height: 400px;
+  width: 200px;
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 1px;
+  background-position: center center;
+  color: black;
+  cursor: pointer;
+`;
 
 const Title = styled.div`
   width: 300px;
@@ -120,9 +143,11 @@ function Search() {
     history.push(`/search/${id}`);
     console.log(id);
   };
-  let clickedMovie =
+  let clickedBox =
     bigBoxMatch?.params.id &&
-    movieList?.find((movie) => movie.id === +bigBoxMatch.params.id);
+    searchResult?.results.find(
+      (contents) => contents.id === +bigBoxMatch.params.id
+    );
   return (
     <Wrapper>
       {isLoading ? (
@@ -130,7 +155,7 @@ function Search() {
       ) : (
         <div>
           <MovieRow>
-            <Title>Search from Movies</Title>
+            <Title>{`Search "${keyword}" from Movies`}</Title>
             <hr />
             <AnimatePresence initial={false}>
               <Movies>
@@ -148,8 +173,22 @@ function Search() {
             </AnimatePresence>
           </MovieRow>
           <TvRow>
-            <Title>Search from TV Shows</Title>
+            <Title>{`Search "${keyword}" from TV Shows`}</Title>
             <hr />
+            <AnimatePresence initial={false}>
+              <Tvs>
+                {tvList.map((tv) => (
+                  <Tv
+                    variants={boxVariation}
+                    layoutId={tv.id + ""}
+                    initial="normal"
+                    whileHover="hover"
+                    onClick={() => onBoxClicked(tv.id)}
+                    bgPhoto={makeImagePath(tv.poster_path, "w500")}
+                  ></Tv>
+                ))}
+              </Tvs>
+            </AnimatePresence>
           </TvRow>
           <AnimatePresence>
             {bigBoxMatch ? (
@@ -165,16 +204,16 @@ function Search() {
                     top: scrollY.get() + 100,
                   }}
                 >
-                  {clickedMovie && (
+                  {clickedBox && (
                     <>
                       <BigCover
                         style={{
                           backgroundImage: `linear-gradient(to top, black, transparent), url(${makeImagePath(
-                            clickedMovie.backdrop_path
+                            clickedBox.backdrop_path
                           )})`,
                         }}
                       />
-                      <BigTitle>{clickedMovie.title}</BigTitle>
+                      <BigTitle>{clickedBox.title}</BigTitle>
                       <SearchDetail />
                     </>
                   )}
