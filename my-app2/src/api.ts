@@ -33,10 +33,6 @@ interface ITv {
   overview: string;
 }
 
-export interface IGetTvResult {
-  results: ITv[];
-}
-
 // Movie
 
 export function getNowPlayingMovies() {
@@ -65,6 +61,10 @@ export function getMovieDetail(movieId?: string) {
   return fetch(`${BASE_PATH}/movie/${movieId}?api_key=${API_KEY}`).then(
     (response) => response.json()
   );
+}
+
+export interface IGetTvResult {
+  results: ITv[];
 }
 
 // TV
