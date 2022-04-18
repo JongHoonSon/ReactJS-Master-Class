@@ -40,11 +40,22 @@ const Overview = styled.p`
 
 const Slider = styled.div`
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   top: -100px;
+`;
+
+const Button = styled.div`
+  width: 2%;
+  height: 200px;
+  background-color: red;
+  z-index: 99;
 `;
 
 const Row = styled(motion.div)`
   display: grid;
+  padding: 0 2%;
   gap: 5px;
   grid-template-columns: repeat(6, 1fr);
   position: absolute;
@@ -169,12 +180,23 @@ function Home() {
   const bigMovieMatch = useRouteMatch<{ movieId: string }>("/movies/:movieId");
   const { scrollY } = useViewportScroll();
   const { data, isLoading } = useQuery<IGetMovieResult>(
-    ["moives", "nowPlaying"],
+    ["movies", "nowPlaying"],
     getMovies
   );
+  const toggleLeaving = () => setLeaving((prev) => !prev);
+  const nowMovies = data;
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
-  const increaseIndex = () => {
+  const decreaseIndex = (data: any) => {
+    if (data) {
+      if (leaving) return;
+      toggleLeaving();
+      const totalMovies = data.results.length - 1; // Banner에 보여준 영화를 뺸 나머지 영화의 수
+      const maxIndex = Math.ceil(totalMovies / offset) - 1; // 총 넘길 수 있는 index 수, 0번째 index부터 시작하므로 -1 해줌
+      setIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
+    }
+  };
+  const increaseIndex = (data: any) => {
     if (data) {
       if (leaving) return;
       toggleLeaving();
@@ -183,7 +205,6 @@ function Home() {
       setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
     }
   };
-  const toggleLeaving = () => setLeaving((prev) => !prev);
   const onOverlayClick = () => history.goBack();
   const onBoxClicked = (movieId: number) => {
     history.push(`/movies/${movieId}`);
@@ -198,14 +219,12 @@ function Home() {
         <Loader>Loading...</Loader>
       ) : (
         <>
-          <Banner
-            onClick={increaseIndex}
-            bgPhoto={makeImagePath(data?.results[0].backdrop_path || "")}
-          >
+          <Banner bgPhoto={makeImagePath(data?.results[0].backdrop_path || "")}>
             <Title>{data?.results[0].title}</Title>
             <Overview>{data?.results[0].overview}</Overview>
           </Banner>
           <Slider>
+            <Button onClick={() => decreaseIndex(nowMovies)}></Button>
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
               <Row
                 variants={rowVariants}
@@ -236,6 +255,7 @@ function Home() {
                   ))}
               </Row>
             </AnimatePresence>
+            <Button onClick={() => increaseIndex(nowMovies)}></Button>
           </Slider>
           <AnimatePresence>
             {bigMovieMatch ? (
