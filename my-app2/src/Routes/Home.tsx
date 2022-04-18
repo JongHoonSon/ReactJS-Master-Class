@@ -284,7 +284,10 @@ function Home() {
     );
   return (
     <Wrapper>
-      {nowPlayingMoviesLoading || latestMoviesLoading ? (
+      {nowPlayingMoviesLoading ||
+      latestMoviesLoading ||
+      topRatedMoviesLoading ||
+      upcomingMoviesLoading ? (
         <Loader>Loading...</Loader>
       ) : (
         <>
@@ -391,6 +394,104 @@ function Home() {
             </AnimatePresence>
             <Button
               onClick={() => increaseIndex(categories.latest, latestMovies)}
+            ></Button>
+          </Slider>
+          <Slider>
+            <SliderTitle>Top Rated Movies</SliderTitle>
+            <Button
+              onClick={() => decreaseIndex(categories.topRated, topRatedMovies)}
+            ></Button>
+            <AnimatePresence
+              initial={false}
+              onExitComplete={toggleLeaving}
+              custom={isBack}
+            >
+              <Row
+                variants={rowVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={{ type: "tween", duration: 1 }}
+                custom={isBack}
+                key={topRatedIndex}
+              >
+                {topRatedMovies?.results
+                  .slice(1) // 맨처음 1개를 자름 (Banner로 보여준 영화)
+                  .slice(
+                    offset * topRatedIndex,
+                    offset * topRatedIndex + offset
+                  ) // 그다음부터 6개씩 자름
+                  .map((movie) => (
+                    <Box
+                      layoutId={movie.id + categories.topRated}
+                      key={movie.id + categories.topRated}
+                      bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
+                      onClick={() =>
+                        onBoxClicked(categories.topRated, movie.id)
+                      }
+                      variants={BoxVariants}
+                      initial="normal"
+                      transition={{ type: "tween" }}
+                      whileHover="hover"
+                    >
+                      <Info variants={infoVariants}>
+                        <h4>{movie.title}</h4>
+                      </Info>
+                    </Box>
+                  ))}
+              </Row>
+            </AnimatePresence>
+            <Button
+              onClick={() => increaseIndex(categories.topRated, topRatedMovies)}
+            ></Button>
+          </Slider>
+          <Slider>
+            <SliderTitle>upcomingMovies</SliderTitle>
+            <Button
+              onClick={() => decreaseIndex(categories.upcoming, upcomingMovies)}
+            ></Button>
+            <AnimatePresence
+              initial={false}
+              onExitComplete={toggleLeaving}
+              custom={isBack}
+            >
+              <Row
+                variants={rowVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={{ type: "tween", duration: 1 }}
+                custom={isBack}
+                key={upcomingIndex}
+              >
+                {upcomingMovies?.results
+                  .slice(1) // 맨처음 1개를 자름 (Banner로 보여준 영화)
+                  .slice(
+                    offset * upcomingIndex,
+                    offset * upcomingIndex + offset
+                  ) // 그다음부터 6개씩 자름
+                  .map((movie) => (
+                    <Box
+                      layoutId={movie.id + categories.upcoming}
+                      key={movie.id + categories.upcoming}
+                      bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
+                      onClick={() =>
+                        onBoxClicked(categories.upcoming, movie.id)
+                      }
+                      variants={BoxVariants}
+                      initial="normal"
+                      transition={{ type: "tween" }}
+                      whileHover="hover"
+                    >
+                      <Info variants={infoVariants}>
+                        <h4>{movie.title}</h4>
+                      </Info>
+                    </Box>
+                  ))}
+              </Row>
+            </AnimatePresence>
+            <Button
+              onClick={() => increaseIndex(categories.upcoming, upcomingMovies)}
             ></Button>
           </Slider>
           <AnimatePresence>
