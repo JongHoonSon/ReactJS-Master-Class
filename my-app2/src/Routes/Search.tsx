@@ -7,10 +7,10 @@ const Wrapper = styled.div`
   margin-top: 100px;
   padding: 100px;
 `;
-const Movies = styled.div`
+const MovieRow = styled.div`
   margin-bottom: 200px;
 `;
-const Tvs = styled.div``;
+const TvRow = styled.div``;
 const Title = styled.div`
   width: 300px;
   height: 50px;
@@ -36,14 +36,14 @@ function Search() {
         <span>isLoading...</span>
       ) : (
         <div>
-          <Movies>
+          <MovieRow>
             <Title>Search from Movies</Title>
             <hr />
-          </Movies>
-          <Tvs>
+          </MovieRow>
+          <TvRow>
             <Title>Search from TV Shows</Title>
             <hr />
-          </Tvs>
+          </TvRow>
         </div>
       )}
     </Wrapper>
