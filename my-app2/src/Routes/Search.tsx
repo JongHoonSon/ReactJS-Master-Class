@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useViewportScroll } from "framer-motion";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
@@ -100,6 +100,7 @@ const Overlay = styled(motion.div)`
 
 function Search() {
   const location = useLocation();
+  const { scrollY } = useViewportScroll();
   const onOverlayClick = () => history.goBack();
   const bigBoxMatch = useRouteMatch<{ id: string }>("/search/:id");
   const keyword = new URLSearchParams(location.search).get("keyword");
@@ -131,9 +132,9 @@ function Search() {
           <MovieRow>
             <Title>Search from Movies</Title>
             <hr />
-            <Movies>
-              {movieList.map((movie) => (
-                <AnimatePresence>
+            <AnimatePresence initial={false}>
+              <Movies>
+                {movieList.map((movie) => (
                   <Movie
                     variants={boxVariation}
                     layoutId={movie.id + ""}
@@ -142,9 +143,9 @@ function Search() {
                     onClick={() => onBoxClicked(movie.id)}
                     bgPhoto={makeImagePath(movie.poster_path, "w500")}
                   ></Movie>
-                </AnimatePresence>
-              ))}
-            </Movies>
+                ))}
+              </Movies>
+            </AnimatePresence>
           </MovieRow>
           <TvRow>
             <Title>Search from TV Shows</Title>
@@ -161,7 +162,7 @@ function Search() {
                 <BigBox
                   layoutId={bigBoxMatch.params.id + ""}
                   style={{
-                    top: 100,
+                    top: scrollY.get() + 100,
                   }}
                 >
                   {clickedMovie && (
