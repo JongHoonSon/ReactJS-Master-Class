@@ -46,6 +46,14 @@ const Slider = styled.div`
   top: -100px;
 `;
 
+const SliderTitle = styled.h2`
+  width: 200px;
+  height: 50px;
+  position: absolute;
+  background-color: blue;
+  top: -50px;
+`;
+
 const Button = styled.div`
   width: 2%;
   height: 200px;
@@ -55,7 +63,7 @@ const Button = styled.div`
 
 const Row = styled(motion.div)`
   display: grid;
-  padding: 0 2%;
+  padding: 50px 2%;
   gap: 5px;
   grid-template-columns: repeat(6, 1fr);
   position: absolute;
@@ -227,6 +235,7 @@ function Home() {
             <Overview>{data?.results[0].overview}</Overview>
           </Banner>
           <Slider>
+            <SliderTitle>Hello</SliderTitle>
             <Button onClick={() => decreaseIndex(nowMovies)}></Button>
             <AnimatePresence
               initial={false}
