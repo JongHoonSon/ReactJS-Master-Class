@@ -26,13 +26,6 @@ export interface IGetMovieDetail {
   vote_average: string;
 }
 
-interface ITv {
-  id: number;
-  backdrop_path: string;
-  name: string;
-  overview: string;
-}
-
 // Movie
 
 export function getNowPlayingMovies() {
@@ -63,8 +56,29 @@ export function getMovieDetail(movieId?: string) {
   );
 }
 
+interface ITv {
+  id: number;
+  backdrop_path: string;
+  name: string;
+  overview: string;
+}
+
 export interface IGetTvResult {
   results: ITv[];
+}
+
+interface IGenres {
+  name: string;
+}
+
+export interface IGetTvDetail {
+  genres: IGenres[];
+  number_of_episodes: boolean;
+  number_of_seasons: number;
+  tagline: string;
+  overview: string;
+  status: string;
+  vote_average: string;
 }
 
 // TV
@@ -88,5 +102,11 @@ export function getPopularTvs() {
 export function getTopRatedTvs() {
   return fetch(`${BASE_PATH}/tv/top_rated?api_key=${API_KEY}`).then(
     (response) => response.json()
+  );
+}
+
+export function getTvDetail(tvId?: string) {
+  return fetch(`${BASE_PATH}/tv/${tvId}?api_key=${API_KEY}`).then((response) =>
+    response.json()
   );
 }
