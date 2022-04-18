@@ -227,44 +227,32 @@ function Home() {
   const [upcomingIndex, setUpcomingIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const [isBack, setIsBack] = useState(false);
-  const decreaseNowPlayingIndex = (data: any) => {
+  const decreaseIndex = (category: string, data: any) => {
     if (data) {
       if (leaving) return;
       toggleLeaving();
       setIsBack(true);
       const totalMovies = data.results.length - 1; // Banner에 보여준 영화를 뺸 나머지 영화의 수
       const maxIndex = Math.ceil(totalMovies / offset) - 1; // 총 넘길 수 있는 index 수, 0번째 index부터 시작하므로 -1 해줌
-      setNowPlayingIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
+      if (category === categories.nowPlaying) {
+        setNowPlayingIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
+      } else if (category === categories.latest) {
+        setLatestIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
+      }
     }
   };
-  const increaseNowPlayingIndex = (data: any) => {
+  const increaseIndex = (category: string, data: any) => {
     if (data) {
       if (leaving) return;
       setIsBack(false);
       toggleLeaving();
       const totalMovies = data.results.length - 1; // Banner에 보여준 영화를 뺸 나머지 영화의 수
       const maxIndex = Math.ceil(totalMovies / offset) - 1; // 총 넘길 수 있는 index 수, 0번째 index부터 시작하므로 -1 해줌
-      setNowPlayingIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
-    }
-  };
-  const decreaseLatestIndex = (data: any) => {
-    if (data) {
-      if (leaving) return;
-      toggleLeaving();
-      setIsBack(true);
-      const totalMovies = data.results.length - 1; // Banner에 보여준 영화를 뺸 나머지 영화의 수
-      const maxIndex = Math.ceil(totalMovies / offset) - 1; // 총 넘길 수 있는 index 수, 0번째 index부터 시작하므로 -1 해줌
-      setLatestIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
-    }
-  };
-  const increaseLatestIndex = (data: any) => {
-    if (data) {
-      if (leaving) return;
-      setIsBack(false);
-      toggleLeaving();
-      const totalMovies = data.results.length - 1; // Banner에 보여준 영화를 뺸 나머지 영화의 수
-      const maxIndex = Math.ceil(totalMovies / offset) - 1; // 총 넘길 수 있는 index 수, 0번째 index부터 시작하므로 -1 해줌
-      setLatestIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+      if (category === categories.nowPlaying) {
+        setNowPlayingIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+      } else if (category === categories.latest) {
+        setLatestIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+      }
     }
   };
   const onOverlayClick = () => history.goBack();
@@ -299,7 +287,9 @@ function Home() {
           <Slider>
             <SliderTitle>nowPlayingMovies</SliderTitle>
             <Button
-              onClick={() => decreaseNowPlayingIndex(nowPlayingMovies)}
+              onClick={() =>
+                decreaseIndex(categories.nowPlaying, nowPlayingMovies)
+              }
             ></Button>
             <AnimatePresence
               initial={false}
@@ -342,12 +332,16 @@ function Home() {
               </Row>
             </AnimatePresence>
             <Button
-              onClick={() => increaseNowPlayingIndex(nowPlayingMovies)}
+              onClick={() =>
+                increaseIndex(categories.nowPlaying, nowPlayingMovies)
+              }
             ></Button>
           </Slider>
           <Slider>
             <SliderTitle>latestMovies</SliderTitle>
-            <Button onClick={() => decreaseLatestIndex(latestMovies)}></Button>
+            <Button
+              onClick={() => decreaseIndex(categories.latest, latestMovies)}
+            ></Button>
             <AnimatePresence
               initial={false}
               onExitComplete={toggleLeaving}
@@ -383,7 +377,9 @@ function Home() {
                   ))}
               </Row>
             </AnimatePresence>
-            <Button onClick={() => increaseLatestIndex(latestMovies)}></Button>
+            <Button
+              onClick={() => increaseIndex(categories.latest, latestMovies)}
+            ></Button>
           </Slider>
           <AnimatePresence>
             {bigMovieMatch ? (
