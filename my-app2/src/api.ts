@@ -20,6 +20,17 @@ export interface IGetMovieResult {
   total_results: number;
 }
 
+interface IGenres {
+  name: string;
+}
+
+export interface IGetMovieDetail {
+  adult: boolean;
+  genres: IGenres[];
+  runtime: number;
+  tagline: string;
+}
+
 export function getNowPlayingMovies() {
   return fetch(`${BASE_PATH}/movie/now_playing?api_key=${API_KEY}`).then(
     (response) => response.json()
@@ -42,6 +53,8 @@ export function getUpcomingMovies() {
   );
 }
 
-export function getMovieDetail(movieId: string) {
-  return fetch(`${BASE_PATH}/movie/${movieId}?api_key=${API_KEY}`);
+export function getMovieDetail(movieId?: string) {
+  return fetch(`${BASE_PATH}/movie/${movieId}?api_key=${API_KEY}`).then(
+    (response) => response.json()
+  );
 }
