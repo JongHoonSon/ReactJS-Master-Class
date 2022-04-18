@@ -110,3 +110,23 @@ export function getTvDetail(tvId?: string) {
     response.json()
   );
 }
+
+// Search
+
+interface ISearchResult {
+  id: number;
+  backdrop_path: string;
+  name?: string;
+  title?: string;
+  overview: string;
+}
+
+export interface IGetMultiSearchResult {
+  results: ISearchResult[];
+}
+
+export function getMultiSearch(query?: string) {
+  return fetch(
+    `${BASE_PATH}/search/multi?api_key=${API_KEY}&query=${query}&page=1`
+  ).then((response) => response.json());
+}
