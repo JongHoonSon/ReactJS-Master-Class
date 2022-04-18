@@ -240,6 +240,10 @@ function Home() {
         setNowPlayingIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
       } else if (category === categories.latest) {
         setLatestIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
+      } else if (category === categories.topRated) {
+        setTopRatedIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
+      } else if (category === categories.upcoming) {
+        setUpcomingIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
       }
     }
   };
@@ -256,6 +260,10 @@ function Home() {
         setNowPlayingIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
       } else if (category === categories.latest) {
         setLatestIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+      } else if (category === categories.topRated) {
+        setTopRatedIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+      } else if (category === categories.upcoming) {
+        setUpcomingIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
       }
     }
   };
