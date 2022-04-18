@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import { useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
-import { getMovieDetail, IGetMovieDetail } from "../api";
+import { getTvDetail, IGetTvDetail } from "../api";
 
 const Info = styled.div`
   position: relative;
@@ -62,11 +62,10 @@ const Genres = styled.ul`
   bottom: 10px;
 `;
 
-function MovieDetail() {
-  const movieMatch = useRouteMatch<{ movieId: string }>(`/movies/:movieId`);
-  const { data: info, isLoading } = useQuery<IGetMovieDetail>(
-    "MovieDetail",
-    () => getMovieDetail(movieMatch?.params.movieId)
+function TvDetail() {
+  const tvMatch = useRouteMatch<{ tvId: string }>(`/tvs/:tvId`);
+  const { data: info, isLoading } = useQuery<IGetTvDetail>("TvDetail", () =>
+    getTvDetail(tvMatch?.params.tvId)
   );
   console.log("info", info);
   return (
@@ -83,12 +82,12 @@ function MovieDetail() {
               {info?.status}
             </Div>
             <Div>
-              <h2>Running Time : </h2>
-              {info?.runtime} min
+              <h2>Number of Seasons : </h2>
+              {info?.number_of_seasons}
             </Div>
             <Div>
-              <h2>Adult Only : </h2>
-              {info?.adult ? `YES` : `NO`}
+              <h2>Number of Episodes : </h2>
+              {info?.number_of_episodes}
             </Div>
             <Div>
               <h2>Vote Average : </h2>
@@ -106,4 +105,4 @@ function MovieDetail() {
   );
 }
 
-export default MovieDetail;
+export default TvDetail;
