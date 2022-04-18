@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
-import { getMovies, IGetMovieResult } from "../api";
+import { getNowPlayingMovies, getPopularMovies, IGetMovieResult } from "../api";
 import { makeImagePath } from "../utils";
 
 const Wrapper = styled.div`
@@ -188,33 +188,53 @@ function Home() {
   const history = useHistory();
   const bigMovieMatch = useRouteMatch<{ movieId: string }>("/movies/:movieId");
   const { scrollY } = useViewportScroll();
-  const { data, isLoading } = useQuery<IGetMovieResult>(
-    ["movies", "nowPlaying"],
-    getMovies
-  );
+  const { data: nowPlayingMovies, isLoading: nowPlayingMoviesLoading } =
+    useQuery<IGetMovieResult>(["movies", "nowPlaying"], getNowPlayingMovies);
+  const { data: latestMovies, isLoading: latestMoviesLoading } =
+    useQuery<IGetMovieResult>(["movies", "latest"], getPopularMovies);
   const toggleLeaving = () => setLeaving((prev) => !prev);
-  const nowMovies = data;
-  const [index, setIndex] = useState(0);
+  const [nowPlayingIndex, setNowPlayingIndex] = useState(0);
+  const [latestIndex, setLatestIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const [isBack, setIsBack] = useState(false);
-  const decreaseIndex = (data: any) => {
+  const decreaseNowPlayingIndex = (data: any) => {
     if (data) {
       if (leaving) return;
       toggleLeaving();
       setIsBack(true);
       const totalMovies = data.results.length - 1; // Banner에 보여준 영화를 뺸 나머지 영화의 수
       const maxIndex = Math.ceil(totalMovies / offset) - 1; // 총 넘길 수 있는 index 수, 0번째 index부터 시작하므로 -1 해줌
-      setIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
+      setNowPlayingIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
     }
   };
-  const increaseIndex = (data: any) => {
+  const increaseNowPlayingIndex = (data: any) => {
     if (data) {
       if (leaving) return;
       setIsBack(false);
       toggleLeaving();
       const totalMovies = data.results.length - 1; // Banner에 보여준 영화를 뺸 나머지 영화의 수
       const maxIndex = Math.ceil(totalMovies / offset) - 1; // 총 넘길 수 있는 index 수, 0번째 index부터 시작하므로 -1 해줌
-      setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+      setNowPlayingIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+    }
+  };
+  const decreaseLatestIndex = (data: any) => {
+    if (data) {
+      if (leaving) return;
+      toggleLeaving();
+      setIsBack(true);
+      const totalMovies = data.results.length - 1; // Banner에 보여준 영화를 뺸 나머지 영화의 수
+      const maxIndex = Math.ceil(totalMovies / offset) - 1; // 총 넘길 수 있는 index 수, 0번째 index부터 시작하므로 -1 해줌
+      setLatestIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
+    }
+  };
+  const increaseLatestIndex = (data: any) => {
+    if (data) {
+      if (leaving) return;
+      setIsBack(false);
+      toggleLeaving();
+      const totalMovies = data.results.length - 1; // Banner에 보여준 영화를 뺸 나머지 영화의 수
+      const maxIndex = Math.ceil(totalMovies / offset) - 1; // 총 넘길 수 있는 index 수, 0번째 index부터 시작하므로 -1 해줌
+      setLatestIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
     }
   };
   const onOverlayClick = () => history.goBack();
@@ -223,21 +243,29 @@ function Home() {
   };
   const clickedMovie =
     bigMovieMatch?.params.movieId &&
-    data?.results.find((movie) => movie.id === +bigMovieMatch.params.movieId);
+    nowPlayingMovies?.results.find(
+      (movie) => movie.id === +bigMovieMatch.params.movieId
+    );
   console.log(clickedMovie);
   return (
     <Wrapper>
-      {isLoading ? (
+      {nowPlayingMoviesLoading || latestMoviesLoading ? (
         <Loader>Loading...</Loader>
       ) : (
         <>
-          <Banner bgPhoto={makeImagePath(data?.results[0].backdrop_path || "")}>
-            <Title>{data?.results[0].title}</Title>
-            <Overview>{data?.results[0].overview}</Overview>
+          <Banner
+            bgPhoto={makeImagePath(
+              nowPlayingMovies?.results[0].backdrop_path || ""
+            )}
+          >
+            <Title>{nowPlayingMovies?.results[0].title}</Title>
+            <Overview>{nowPlayingMovies?.results[0].overview}</Overview>
           </Banner>
           <Slider>
-            <SliderTitle>Hello</SliderTitle>
-            <Button onClick={() => decreaseIndex(nowMovies)}></Button>
+            <SliderTitle>nowPlayingMovies</SliderTitle>
+            <Button
+              onClick={() => decreaseNowPlayingIndex(nowPlayingMovies)}
+            ></Button>
             <AnimatePresence
               initial={false}
               onExitComplete={toggleLeaving}
@@ -250,15 +278,18 @@ function Home() {
                 exit="exit"
                 transition={{ type: "tween", duration: 1 }}
                 custom={isBack}
-                key={index}
+                key={nowPlayingIndex}
               >
-                {data?.results
+                {nowPlayingMovies?.results
                   .slice(1) // 맨처음 1개를 자름 (Banner로 보여준 영화)
-                  .slice(offset * index, offset * index + offset) // 그다음부터 6개씩 자름
+                  .slice(
+                    offset * nowPlayingIndex,
+                    offset * nowPlayingIndex + offset
+                  ) // 그다음부터 6개씩 자름
                   .map((movie) => (
                     <Box
-                      layoutId={movie.id + ""}
-                      key={movie.id}
+                      layoutId={movie.id + "nowPlaying"}
+                      key={movie.id + "nowPlaying"}
                       bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
                       onClick={() => onBoxClicked(movie.id)}
                       variants={BoxVariants}
@@ -273,11 +304,13 @@ function Home() {
                   ))}
               </Row>
             </AnimatePresence>
-            <Button onClick={() => increaseIndex(nowMovies)}></Button>
+            <Button
+              onClick={() => increaseNowPlayingIndex(nowPlayingMovies)}
+            ></Button>
           </Slider>
           <Slider>
-            <SliderTitle>Hello</SliderTitle>
-            <Button onClick={() => decreaseIndex(nowMovies)}></Button>
+            <SliderTitle>latestMovies</SliderTitle>
+            <Button onClick={() => decreaseLatestIndex(latestMovies)}></Button>
             <AnimatePresence
               initial={false}
               onExitComplete={toggleLeaving}
@@ -290,15 +323,15 @@ function Home() {
                 exit="exit"
                 transition={{ type: "tween", duration: 1 }}
                 custom={isBack}
-                key={index}
+                key={latestIndex}
               >
-                {data?.results
+                {latestMovies?.results
                   .slice(1) // 맨처음 1개를 자름 (Banner로 보여준 영화)
-                  .slice(offset * index, offset * index + offset) // 그다음부터 6개씩 자름
+                  .slice(offset * latestIndex, offset * latestIndex + offset) // 그다음부터 6개씩 자름
                   .map((movie) => (
                     <Box
-                      layoutId={movie.id + ""}
-                      key={movie.id}
+                      layoutId={movie.id + "latest"}
+                      key={movie.id + "latest"}
                       bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
                       onClick={() => onBoxClicked(movie.id)}
                       variants={BoxVariants}
@@ -313,87 +346,7 @@ function Home() {
                   ))}
               </Row>
             </AnimatePresence>
-            <Button onClick={() => increaseIndex(nowMovies)}></Button>
-          </Slider>
-          <Slider>
-            <SliderTitle>Hello</SliderTitle>
-            <Button onClick={() => decreaseIndex(nowMovies)}></Button>
-            <AnimatePresence
-              initial={false}
-              onExitComplete={toggleLeaving}
-              custom={isBack}
-            >
-              <Row
-                variants={rowVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                transition={{ type: "tween", duration: 1 }}
-                custom={isBack}
-                key={index}
-              >
-                {data?.results
-                  .slice(1) // 맨처음 1개를 자름 (Banner로 보여준 영화)
-                  .slice(offset * index, offset * index + offset) // 그다음부터 6개씩 자름
-                  .map((movie) => (
-                    <Box
-                      layoutId={movie.id + ""}
-                      key={movie.id}
-                      bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
-                      onClick={() => onBoxClicked(movie.id)}
-                      variants={BoxVariants}
-                      initial="normal"
-                      transition={{ type: "tween" }}
-                      whileHover="hover"
-                    >
-                      <Info variants={infoVariants}>
-                        <h4>{movie.title}</h4>
-                      </Info>
-                    </Box>
-                  ))}
-              </Row>
-            </AnimatePresence>
-            <Button onClick={() => increaseIndex(nowMovies)}></Button>
-          </Slider>
-          <Slider>
-            <SliderTitle>Hello</SliderTitle>
-            <Button onClick={() => decreaseIndex(nowMovies)}></Button>
-            <AnimatePresence
-              initial={false}
-              onExitComplete={toggleLeaving}
-              custom={isBack}
-            >
-              <Row
-                variants={rowVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                transition={{ type: "tween", duration: 1 }}
-                custom={isBack}
-                key={index}
-              >
-                {data?.results
-                  .slice(1) // 맨처음 1개를 자름 (Banner로 보여준 영화)
-                  .slice(offset * index, offset * index + offset) // 그다음부터 6개씩 자름
-                  .map((movie) => (
-                    <Box
-                      layoutId={movie.id + ""}
-                      key={movie.id}
-                      bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
-                      onClick={() => onBoxClicked(movie.id)}
-                      variants={BoxVariants}
-                      initial="normal"
-                      transition={{ type: "tween" }}
-                      whileHover="hover"
-                    >
-                      <Info variants={infoVariants}>
-                        <h4>{movie.title}</h4>
-                      </Info>
-                    </Box>
-                  ))}
-              </Row>
-            </AnimatePresence>
-            <Button onClick={() => increaseIndex(nowMovies)}></Button>
+            <Button onClick={() => increaseLatestIndex(latestMovies)}></Button>
           </Slider>
           <AnimatePresence>
             {bigMovieMatch ? (
