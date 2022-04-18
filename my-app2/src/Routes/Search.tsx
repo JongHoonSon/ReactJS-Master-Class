@@ -1,3 +1,5 @@
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 import { useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
@@ -19,7 +21,7 @@ const Movies = styled.ul`
   grid-template-columns: repeat(8, 1fr);
 `;
 
-const Movie = styled.div<{ bgPhoto: string }>`
+const Movie = styled(motion.div)<{ bgPhoto: string }>`
   background-color: white;
   background-image: url(${(props) => props.bgPhoto});
   background-size: cover;
@@ -40,6 +42,15 @@ const Title = styled.div`
   height: 50px;
 `;
 
+const boxVariation = {
+  normal: {
+    scale: 1,
+  },
+  hover: {
+    scale: 1.1,
+  },
+};
+
 function Search() {
   const location = useLocation();
   const keyword = new URLSearchParams(location.search).get("keyword");
@@ -51,6 +62,8 @@ function Search() {
   console.log("searchResult", searchResult);
   const movieList = new Array();
   const tvList = new Array();
+  const [leaving, setLeaving] = useState(false);
+  const toggleLeaving = () => setLeaving((prev) => !prev);
   searchResult?.results.map((result) =>
     result.title ? movieList.push(result) : tvList.push(result)
   );
@@ -65,9 +78,14 @@ function Search() {
             <hr />
             <Movies>
               {movieList.map((movie) => (
-                <Movie
-                  bgPhoto={makeImagePath(movie.poster_path, "w500")}
-                ></Movie>
+                <AnimatePresence onExitComplete={toggleLeaving}>
+                  <Movie
+                    variants={boxVariation}
+                    initial="normal"
+                    whileHover="hover"
+                    bgPhoto={makeImagePath(movie.poster_path, "w500")}
+                  ></Movie>
+                </AnimatePresence>
               ))}
             </Movies>
           </MovieRow>
