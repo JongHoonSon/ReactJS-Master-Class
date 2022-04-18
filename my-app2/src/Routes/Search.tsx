@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { getMultiSearch, IGetMultiSearchResult } from "../api";
+import { makeImagePath } from "../utils";
 
 const Wrapper = styled.div`
   margin-top: 100px;
@@ -10,18 +11,25 @@ const Wrapper = styled.div`
 
 const MovieRow = styled.div`
   margin-bottom: 200px;
-  background-color: red;
 `;
 
 const Movies = styled.ul`
   display: grid;
+  width: 1600px;
   grid-template-columns: repeat(8, 1fr);
-  background-color: blue;
 `;
 
-const Movie = styled.div`
-  padding: 20px;
+const Movie = styled.div<{ bgPhoto: string }>`
   background-color: white;
+  background-image: url(${(props) => props.bgPhoto});
+  background-size: cover;
+  padding: 20px;
+  height: 400px;
+  width: 200px;
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 1px;
+  background-position: center center;
   color: black;
 `;
 
@@ -57,7 +65,9 @@ function Search() {
             <hr />
             <Movies>
               {movieList.map((movie) => (
-                <Movie>{movie.title}</Movie>
+                <Movie
+                  bgPhoto={makeImagePath(movie.poster_path, "w500")}
+                ></Movie>
               ))}
             </Movies>
           </MovieRow>
