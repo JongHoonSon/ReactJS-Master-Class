@@ -116,6 +116,7 @@ export function getTvDetail(tvId?: string) {
 interface ISearchResult {
   id: number;
   backdrop_path: string;
+  poster_path: string;
   name?: string;
   title?: string;
   overview: string;
