@@ -30,6 +30,8 @@ export interface IGetMovieDetail {
   runtime: number;
   tagline: string;
   overview: string;
+  status: string;
+  vote_average: string;
 }
 
 export function getNowPlayingMovies() {
