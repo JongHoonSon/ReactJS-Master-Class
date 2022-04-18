@@ -40,6 +40,7 @@ const Overview = styled.p`
 
 const Slider = styled.div`
   position: relative;
+  margin: 50px 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -63,7 +64,7 @@ const Button = styled.div`
 
 const Row = styled(motion.div)`
   display: grid;
-  padding: 50px 2%;
+  padding: 0 2%;
   gap: 5px;
   grid-template-columns: repeat(6, 1fr);
   position: absolute;
@@ -234,6 +235,126 @@ function Home() {
             <Title>{data?.results[0].title}</Title>
             <Overview>{data?.results[0].overview}</Overview>
           </Banner>
+          <Slider>
+            <SliderTitle>Hello</SliderTitle>
+            <Button onClick={() => decreaseIndex(nowMovies)}></Button>
+            <AnimatePresence
+              initial={false}
+              onExitComplete={toggleLeaving}
+              custom={isBack}
+            >
+              <Row
+                variants={rowVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={{ type: "tween", duration: 1 }}
+                custom={isBack}
+                key={index}
+              >
+                {data?.results
+                  .slice(1) // 맨처음 1개를 자름 (Banner로 보여준 영화)
+                  .slice(offset * index, offset * index + offset) // 그다음부터 6개씩 자름
+                  .map((movie) => (
+                    <Box
+                      layoutId={movie.id + ""}
+                      key={movie.id}
+                      bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
+                      onClick={() => onBoxClicked(movie.id)}
+                      variants={BoxVariants}
+                      initial="normal"
+                      transition={{ type: "tween" }}
+                      whileHover="hover"
+                    >
+                      <Info variants={infoVariants}>
+                        <h4>{movie.title}</h4>
+                      </Info>
+                    </Box>
+                  ))}
+              </Row>
+            </AnimatePresence>
+            <Button onClick={() => increaseIndex(nowMovies)}></Button>
+          </Slider>
+          <Slider>
+            <SliderTitle>Hello</SliderTitle>
+            <Button onClick={() => decreaseIndex(nowMovies)}></Button>
+            <AnimatePresence
+              initial={false}
+              onExitComplete={toggleLeaving}
+              custom={isBack}
+            >
+              <Row
+                variants={rowVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={{ type: "tween", duration: 1 }}
+                custom={isBack}
+                key={index}
+              >
+                {data?.results
+                  .slice(1) // 맨처음 1개를 자름 (Banner로 보여준 영화)
+                  .slice(offset * index, offset * index + offset) // 그다음부터 6개씩 자름
+                  .map((movie) => (
+                    <Box
+                      layoutId={movie.id + ""}
+                      key={movie.id}
+                      bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
+                      onClick={() => onBoxClicked(movie.id)}
+                      variants={BoxVariants}
+                      initial="normal"
+                      transition={{ type: "tween" }}
+                      whileHover="hover"
+                    >
+                      <Info variants={infoVariants}>
+                        <h4>{movie.title}</h4>
+                      </Info>
+                    </Box>
+                  ))}
+              </Row>
+            </AnimatePresence>
+            <Button onClick={() => increaseIndex(nowMovies)}></Button>
+          </Slider>
+          <Slider>
+            <SliderTitle>Hello</SliderTitle>
+            <Button onClick={() => decreaseIndex(nowMovies)}></Button>
+            <AnimatePresence
+              initial={false}
+              onExitComplete={toggleLeaving}
+              custom={isBack}
+            >
+              <Row
+                variants={rowVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={{ type: "tween", duration: 1 }}
+                custom={isBack}
+                key={index}
+              >
+                {data?.results
+                  .slice(1) // 맨처음 1개를 자름 (Banner로 보여준 영화)
+                  .slice(offset * index, offset * index + offset) // 그다음부터 6개씩 자름
+                  .map((movie) => (
+                    <Box
+                      layoutId={movie.id + ""}
+                      key={movie.id}
+                      bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
+                      onClick={() => onBoxClicked(movie.id)}
+                      variants={BoxVariants}
+                      initial="normal"
+                      transition={{ type: "tween" }}
+                      whileHover="hover"
+                    >
+                      <Info variants={infoVariants}>
+                        <h4>{movie.title}</h4>
+                      </Info>
+                    </Box>
+                  ))}
+              </Row>
+            </AnimatePresence>
+            <Button onClick={() => increaseIndex(nowMovies)}></Button>
+          </Slider>
           <Slider>
             <SliderTitle>Hello</SliderTitle>
             <Button onClick={() => decreaseIndex(nowMovies)}></Button>
