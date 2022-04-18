@@ -11,6 +11,7 @@ import {
   IGetTvResult,
 } from "../api";
 import { makeImagePath } from "../utils";
+import TvDetail from "./TvDetail";
 
 const Wrapper = styled.div`
   background: black;
@@ -524,7 +525,7 @@ function Tv() {
                         }}
                       />
                       <BigTitle>{clickedTv.name}</BigTitle>
-                      {/* <tvDetail /> */}
+                      <TvDetail />
                     </>
                   )}
                 </Bigtv>
