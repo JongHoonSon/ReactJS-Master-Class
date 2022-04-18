@@ -7,10 +7,26 @@ const Wrapper = styled.div`
   margin-top: 100px;
   padding: 100px;
 `;
+
 const MovieRow = styled.div`
   margin-bottom: 200px;
+  background-color: red;
 `;
+
+const Movies = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  background-color: blue;
+`;
+
+const Movie = styled.div`
+  padding: 20px;
+  background-color: white;
+  color: black;
+`;
+
 const TvRow = styled.div``;
+
 const Title = styled.div`
   width: 300px;
   height: 50px;
@@ -39,6 +55,11 @@ function Search() {
           <MovieRow>
             <Title>Search from Movies</Title>
             <hr />
+            <Movies>
+              {movieList.map((movie) => (
+                <Movie>{movie.title}</Movie>
+              ))}
+            </Movies>
           </MovieRow>
           <TvRow>
             <Title>Search from TV Shows</Title>
