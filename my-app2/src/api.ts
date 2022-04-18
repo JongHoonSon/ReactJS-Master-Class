@@ -41,3 +41,7 @@ export function getUpcomingMovies() {
     (response) => response.json()
   );
 }
+
+export function getMovieDetail(movieId: string) {
+  return fetch(`${BASE_PATH}/movie/${movieId}?api_key=${API_KEY}`);
+}
