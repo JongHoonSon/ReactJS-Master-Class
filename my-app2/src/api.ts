@@ -29,6 +29,7 @@ export interface IGetMovieDetail {
   genres: IGenres[];
   runtime: number;
   tagline: string;
+  overview: string;
 }
 
 export function getNowPlayingMovies() {
