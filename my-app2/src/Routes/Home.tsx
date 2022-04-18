@@ -232,9 +232,11 @@ function Home() {
       if (leaving) return;
       toggleLeaving();
       setIsBack(true);
-      const totalMovies = data.results.length - 1; // Banner에 보여준 영화를 뺸 나머지 영화의 수
-      const maxIndex = Math.ceil(totalMovies / offset) - 1; // 총 넘길 수 있는 index 수, 0번째 index부터 시작하므로 -1 해줌
+      let totalMovies = data.results.length;
+      let maxIndex = Math.ceil(totalMovies / offset);
       if (category === categories.nowPlaying) {
+        totalMovies = totalMovies - 1; // Banner에 보여준 영화를 뺸 나머지 영화의 수
+        maxIndex = maxIndex - 1; // 총 넘길 수 있는 index 수, 0번째 index부터 시작하므로 -1 해줌
         setNowPlayingIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
       } else if (category === categories.latest) {
         setLatestIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
@@ -246,9 +248,11 @@ function Home() {
       if (leaving) return;
       setIsBack(false);
       toggleLeaving();
-      const totalMovies = data.results.length - 1; // Banner에 보여준 영화를 뺸 나머지 영화의 수
-      const maxIndex = Math.ceil(totalMovies / offset) - 1; // 총 넘길 수 있는 index 수, 0번째 index부터 시작하므로 -1 해줌
+      let totalMovies = data.results.length;
+      let maxIndex = Math.ceil(totalMovies / offset);
       if (category === categories.nowPlaying) {
+        totalMovies = totalMovies - 1; // Banner에 보여준 영화를 뺸 나머지 영화의 수
+        maxIndex = maxIndex - 1; // 총 넘길 수 있는 index 수, 0번째 index부터 시작하므로 -1 해줌
         setNowPlayingIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
       } else if (category === categories.latest) {
         setLatestIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
