@@ -16,6 +16,7 @@ function Detail() {
     "MovieDetail",
     () => getMovieDetail(movieMatch?.params.movieId)
   );
+  console.log("info", info);
   return (
     <div>
       {isLoading ? (
