@@ -149,9 +149,9 @@ const BigCover = styled(motion.div)`
 const BigTitle = styled(motion.h3)`
   color: ${(props) => props.theme.white.lighter};
   padding: 20px;
-  font-size: 48px;
+  font-size: 32px;
   position: relative;
-  top: -90px;
+  top: -80px;
 `;
 
 const rowVariants = {
