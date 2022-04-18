@@ -3,7 +3,13 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import styled from "styled-components";
-import { getNowPlayingMovies, getPopularMovies, IGetMovieResult } from "../api";
+import {
+  getNowPlayingMovies,
+  getPopularMovies,
+  getTopRatedMovies,
+  getUpcomingMovies,
+  IGetMovieResult,
+} from "../api";
 import { makeImagePath } from "../utils";
 
 const Wrapper = styled.div`
@@ -202,6 +208,16 @@ function Home() {
     );
   const { data: latestMovies, isLoading: latestMoviesLoading } =
     useQuery<IGetMovieResult>(["movies", categories.latest], getPopularMovies);
+  const { data: topRatedMovies, isLoading: topRatedMoviesLoading } =
+    useQuery<IGetMovieResult>(
+      ["movies", categories.topRated],
+      getTopRatedMovies
+    );
+  const { data: upcomingMovies, isLoading: upcomingMoviesLoading } =
+    useQuery<IGetMovieResult>(
+      ["movies", categories.upcoming],
+      getUpcomingMovies
+    );
   const [clickedRowMovies, setClickedRowMovies] = useState<IGetMovieResult>();
   const [clickedRowName, setClickedRowName] = useState<string>();
   const toggleLeaving = () => setLeaving((prev) => !prev);
