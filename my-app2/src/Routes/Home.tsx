@@ -10,7 +10,7 @@ import {
   getUpcomingMovies,
   IGetMovieResult,
 } from "../api";
-import Detail from "../Components/Detail";
+import Detail from "./Detail";
 import { makeImagePath } from "../utils";
 
 const Wrapper = styled.div`
