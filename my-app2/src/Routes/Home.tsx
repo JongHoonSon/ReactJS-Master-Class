@@ -275,6 +275,10 @@ function Home() {
       setClickedRowMovies(nowPlayingMovies);
     } else if (category === categories.latest) {
       setClickedRowMovies(latestMovies);
+    } else if (category === categories.topRated) {
+      setClickedRowMovies(topRatedMovies);
+    } else if (category === categories.upcoming) {
+      setClickedRowMovies(upcomingMovies);
     }
   };
   let clickedMovie =
