@@ -154,13 +154,6 @@ const BigTitle = styled(motion.h3)`
   top: -90px;
 `;
 
-const BigOverview = styled(motion.p)`
-  color: ${(props) => props.theme.white.lighter};
-  padding: 20px;
-  position: relative;
-  top: -90px;
-`;
-
 const rowVariants = {
   hidden: (isBack: boolean) => ({
     x: isBack ? -window.innerWidth : window.innerWidth,
@@ -547,7 +540,6 @@ function Home() {
                         }}
                       />
                       <BigTitle>{clickedMovie.title}</BigTitle>
-                      <BigOverview>{clickedMovie.overview}</BigOverview>
                       <Detail />
                     </>
                   )}
