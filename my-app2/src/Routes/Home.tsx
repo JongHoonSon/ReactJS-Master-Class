@@ -64,8 +64,13 @@ const SliderTitle = styled.h2`
 const Button = styled.div`
   width: 2%;
   height: 200px;
-  background-color: red;
+  background-color: transparent;
   z-index: 99;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.5;
 `;
 
 const Row = styled(motion.div)`
@@ -309,7 +314,9 @@ function Home() {
               onClick={() =>
                 decreaseIndex(categories.nowPlaying, nowPlayingMovies)
               }
-            ></Button>
+            >
+              <span>{`<`}</span>
+            </Button>
             <AnimatePresence
               initial={false}
               onExitComplete={toggleLeaving}
@@ -354,13 +361,17 @@ function Home() {
               onClick={() =>
                 increaseIndex(categories.nowPlaying, nowPlayingMovies)
               }
-            ></Button>
+            >
+              <span>{`>`}</span>
+            </Button>
           </Slider>
           <Slider>
             <SliderTitle>latestMovies</SliderTitle>
             <Button
               onClick={() => decreaseIndex(categories.latest, latestMovies)}
-            ></Button>
+            >
+              <span>{`<`}</span>
+            </Button>
             <AnimatePresence
               initial={false}
               onExitComplete={toggleLeaving}
@@ -398,13 +409,17 @@ function Home() {
             </AnimatePresence>
             <Button
               onClick={() => increaseIndex(categories.latest, latestMovies)}
-            ></Button>
+            >
+              <span>{`>`}</span>
+            </Button>
           </Slider>
           <Slider>
             <SliderTitle>Top Rated Movies</SliderTitle>
             <Button
               onClick={() => decreaseIndex(categories.topRated, topRatedMovies)}
-            ></Button>
+            >
+              <span>{`<`}</span>
+            </Button>
             <AnimatePresence
               initial={false}
               onExitComplete={toggleLeaving}
@@ -447,13 +462,17 @@ function Home() {
             </AnimatePresence>
             <Button
               onClick={() => increaseIndex(categories.topRated, topRatedMovies)}
-            ></Button>
+            >
+              <span>{`>`}</span>
+            </Button>
           </Slider>
           <Slider>
             <SliderTitle>upcomingMovies</SliderTitle>
             <Button
               onClick={() => decreaseIndex(categories.upcoming, upcomingMovies)}
-            ></Button>
+            >
+              <span>{`<`}</span>
+            </Button>
             <AnimatePresence
               initial={false}
               onExitComplete={toggleLeaving}
@@ -496,7 +515,9 @@ function Home() {
             </AnimatePresence>
             <Button
               onClick={() => increaseIndex(categories.upcoming, upcomingMovies)}
-            ></Button>
+            >
+              <span>{`>`}</span>
+            </Button>
           </Slider>
           <AnimatePresence>
             {bigMovieMatch ? (
