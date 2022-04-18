@@ -223,6 +223,8 @@ function Home() {
   const toggleLeaving = () => setLeaving((prev) => !prev);
   const [nowPlayingIndex, setNowPlayingIndex] = useState(0);
   const [latestIndex, setLatestIndex] = useState(0);
+  const [topRatedIndex, setTopRatedIndex] = useState(0);
+  const [upcomingIndex, setUpcomingIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const [isBack, setIsBack] = useState(false);
   const decreaseNowPlayingIndex = (data: any) => {
