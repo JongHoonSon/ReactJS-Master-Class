@@ -192,6 +192,8 @@ function Home() {
     useQuery<IGetMovieResult>(["movies", "nowPlaying"], getNowPlayingMovies);
   const { data: latestMovies, isLoading: latestMoviesLoading } =
     useQuery<IGetMovieResult>(["movies", "latest"], getPopularMovies);
+  const [clickedRowMovies, setClickedRowMovies] = useState<IGetMovieResult>();
+  const [clickedRowName, setClickedRowName] = useState<string>();
   const toggleLeaving = () => setLeaving((prev) => !prev);
   const [nowPlayingIndex, setNowPlayingIndex] = useState(0);
   const [latestIndex, setLatestIndex] = useState(0);
@@ -238,15 +240,20 @@ function Home() {
     }
   };
   const onOverlayClick = () => history.goBack();
-  const onBoxClicked = (movieId: number) => {
+  const onBoxClicked = (category: string, movieId: number) => {
     history.push(`/movies/${movieId}`);
+    setClickedRowName(category);
+    if (category === "nowPlaying") {
+      setClickedRowMovies(nowPlayingMovies);
+    } else if (category === "latest") {
+      setClickedRowMovies(latestMovies);
+    }
   };
-  const clickedMovie =
+  let clickedMovie =
     bigMovieMatch?.params.movieId &&
-    nowPlayingMovies?.results.find(
+    clickedRowMovies?.results.find(
       (movie) => movie.id === +bigMovieMatch.params.movieId
     );
-  console.log(clickedMovie);
   return (
     <Wrapper>
       {nowPlayingMoviesLoading || latestMoviesLoading ? (
@@ -291,7 +298,7 @@ function Home() {
                       layoutId={movie.id + "nowPlaying"}
                       key={movie.id + "nowPlaying"}
                       bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
-                      onClick={() => onBoxClicked(movie.id)}
+                      onClick={() => onBoxClicked("nowPlaying", movie.id)}
                       variants={BoxVariants}
                       initial="normal"
                       transition={{ type: "tween" }}
@@ -333,7 +340,7 @@ function Home() {
                       layoutId={movie.id + "latest"}
                       key={movie.id + "latest"}
                       bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
-                      onClick={() => onBoxClicked(movie.id)}
+                      onClick={() => onBoxClicked("latest", movie.id)}
                       variants={BoxVariants}
                       initial="normal"
                       transition={{ type: "tween" }}
@@ -357,7 +364,7 @@ function Home() {
                   exit={{ opacity: 0 }}
                 ></Overlay>
                 <BigMovie
-                  layoutId={bigMovieMatch.params.movieId}
+                  layoutId={bigMovieMatch.params.movieId + clickedRowName}
                   style={{
                     top: scrollY.get() + 100,
                   }}
